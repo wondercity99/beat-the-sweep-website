@@ -4,9 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'sweep-blue': '#2563eb',
-        'sweep-blue-dark': '#1d4ed8',
-        'sweep-blue-light': '#3b82f6',
+        'sweep-blue': '#519bff',
+        'sweep-blue-dark': '#3d7ed9',
+        'sweep-blue-light': '#7cb3ff',
+        'sweep-orange': '#ffb500',
+        'sweep-orange-dark': '#c75100',
+        'sweep-yellow': '#ffdd00',
       },
     },
   },
