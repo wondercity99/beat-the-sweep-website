@@ -17,12 +17,8 @@
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center">
           <a href="/" class="flex items-center space-x-2">
-            <div class="w-10 h-10 bg-sweep-blue rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-              </svg>
-            </div>
-            <span class="text-xl font-bold text-gray-900">Beat the Sweep</span>
+            <img src="images/BTS-logo_sweep-car.svg" alt="Beat the Sweep" style="height: 5rem;" class="w-auto">
+            <span style="font-size: 1.5rem;" class="font-bold text-gray-900">Beat the Sweep</span>
           </a>
         </div>
         <div class="hidden md:flex items-center space-x-8">
@@ -63,7 +59,7 @@
         <div class="text-center md:text-left">
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
             Never Get a<br>
-            <span class="text-sweep-yellow">Parking Ticket</span><br>
+            <span class="text-sweep-yellow whitespace-nowrap">Sweeping Ticket</span><br>
             Again
           </h1>
           <p class="text-xl text-sweep-blue-light mb-8 max-w-lg">
@@ -134,8 +130,8 @@
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Feature 1 -->
-        <div class="card text-center">
-          <div class="w-16 h-16 bg-sweep-orange/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+        <div class="card text-center group cursor-pointer hover:-translate-y-2 hover:ring-2 hover:ring-sweep-blue">
+          <div class="w-16 h-16 bg-sweep-orange/20 rounded-2xl mx-auto mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <svg class="w-8 h-8 text-sweep-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -146,8 +142,8 @@
         </div>
 
         <!-- Feature 2 -->
-        <div class="card text-center">
-          <div class="w-16 h-16 bg-sweep-orange/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+        <div class="card text-center group cursor-pointer hover:-translate-y-2 hover:ring-2 hover:ring-sweep-blue">
+          <div class="w-16 h-16 bg-sweep-orange/20 rounded-2xl mx-auto mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <svg class="w-8 h-8 text-sweep-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
             </svg>
@@ -157,8 +153,8 @@
         </div>
 
         <!-- Feature 3 -->
-        <div class="card text-center">
-          <div class="w-16 h-16 bg-sweep-orange/20 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+        <div class="card text-center group cursor-pointer hover:-translate-y-2 hover:ring-2 hover:ring-sweep-blue">
+          <div class="w-16 h-16 bg-sweep-orange/20 rounded-2xl mx-auto mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <svg class="w-8 h-8 text-sweep-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>
@@ -180,22 +176,22 @@
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Step 1 -->
-        <div class="text-center">
-          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg">1</div>
+        <div class="text-center group cursor-pointer">
+          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:ring-4 group-hover:ring-sweep-blue/30">1</div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">Snap the Sign</h3>
           <p class="text-gray-600">Open the app and take a photo of the street sweeping sign where you parked.</p>
         </div>
 
         <!-- Step 2 -->
-        <div class="text-center">
-          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg">2</div>
+        <div class="text-center group cursor-pointer">
+          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:ring-4 group-hover:ring-sweep-blue/30">2</div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">Confirm Details</h3>
           <p class="text-gray-600">Review the detected schedule and choose when you want to be reminded.</p>
         </div>
 
         <!-- Step 3 -->
-        <div class="text-center">
-          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg">3</div>
+        <div class="text-center group cursor-pointer">
+          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:ring-4 group-hover:ring-sweep-blue/30">3</div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">Get Reminded</h3>
           <p class="text-gray-600">Receive a notification before sweeping starts. Move your car and avoid the ticket!</p>
         </div>
@@ -208,12 +204,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
         <div>
-          <div class="text-4xl md:text-5xl font-bold mb-2">$75+</div>
-          <div class="text-sweep-blue-light">Avg. Ticket Cost</div>
+          <div class="text-4xl md:text-5xl font-bold mb-2">$25-$75+</div>
+          <div class="text-sweep-blue-light">Typical Ticket Cost</div>
         </div>
         <div>
-          <div class="text-4xl md:text-5xl font-bold mb-2">1000+</div>
-          <div class="text-sweep-blue-light">Tickets Avoided</div>
+          <div class="text-4xl md:text-5xl font-bold mb-2">5-7M+</div>
+          <div class="text-sweep-blue-light">Tickets Issued by Cities Each Year</div>
         </div>
         <div>
           <div class="text-4xl md:text-5xl font-bold mb-2">99%</div>
@@ -227,9 +223,20 @@
     </div>
   </section>
 
+  <!-- About Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-xl font-bold text-gray-900 mb-3 text-center">The Story Behind Beat the Sweep</h2>
+      <p class="text-lg text-gray-600 leading-relaxed text-left">
+        Two sweep tickets in one month after moving to Lancaster, PA! That frustration sparked Beat the Sweep. It's built for every driver in sweep-crazed cities who've been there.
+      </p>
+    </div>
+  </section>
+
   <!-- Download Section -->
   <section id="download" class="py-20 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <img src="images/BTS-logo_sweep-car.svg" alt="Beat the Sweep" style="height: 14rem; margin-bottom: 0;" class="w-auto mx-auto">
       <h2 class="section-heading">Ready to Beat the Sweep?</h2>
       <p class="section-subheading mb-10">Download now and start saving money on parking tickets today.</p>
 
@@ -263,11 +270,6 @@
       <div class="grid md:grid-cols-4 gap-8">
         <div class="md:col-span-2">
           <div class="flex items-center space-x-2 mb-4">
-            <div class="w-10 h-10 bg-sweep-blue rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-              </svg>
-            </div>
             <span class="text-xl font-bold text-white">Beat the Sweep</span>
           </div>
           <p class="text-sm max-w-md">The smart way to avoid street sweeping tickets. Snap, save, and never worry about parking again.</p>
