@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tailwindcss:*)",
+      "Bash(flutter doctor:*)",
+      "Bash(pushd:*)",
+      "Bash(flutter:*)",
+      "Bash(echo:*)",
+      "Bash(./gradlew bundleRelease:*)",
+      "Bash(./gradlew clean:*)",
+      "Bash(./gradlew app:printVersionCode:*)",
+      "Bash(git -C \"C:\\\\dev\\\\flutter-projects\\\\beat_the_sweep\" add android/app/src/main/AndroidManifest.xml pubspec.yaml)",
+      "Bash(git -C \"C:\\\\dev\\\\flutter-projects\\\\beat_the_sweep\" commit -m \"$\\(cat <<''EOF''\nRemove USE_EXACT_ALARM permission and bump version to 1.0.4+6 for Play Store submission\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(npm run:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
