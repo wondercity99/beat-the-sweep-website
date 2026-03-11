@@ -35,7 +35,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white rounded-2xl shadow-sm p-8 md:p-12">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-        <p class="text-gray-500 mb-8">Last updated: February 2, 2026</p>
+        <p class="text-gray-500 mb-8">Last updated: March 11, 2026</p>
 
         <div class="prose prose-gray max-w-none">
           <section class="mb-8">
@@ -53,16 +53,15 @@
 
             <h3 class="text-lg font-medium text-gray-800 mb-3">Information You Provide</h3>
             <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
-              <li><strong>Account Information:</strong> When you create an account, we may collect your email address and authentication credentials.</li>
-              <li><strong>Photos:</strong> Images of parking signs that you capture using the app to set up reminders.</li>
+              <li><strong>Account Information:</strong> When you sign in via Google Sign-In or Apple Sign-In, we collect your name, email address, and profile picture as provided by the sign-in provider.</li>
+              <li><strong>Photos:</strong> Images of parking signs that you capture are sent to Google Cloud Vision for text extraction, then discarded. Photos are not stored in the cloud.</li>
               <li><strong>Location Names:</strong> Custom names you assign to saved parking locations.</li>
             </ul>
 
             <h3 class="text-lg font-medium text-gray-800 mb-3">Information Collected Automatically</h3>
             <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
-              <li><strong>Location Data:</strong> With your permission, we collect your device's location to associate parking reminders with specific locations.</li>
-              <li><strong>Device Information:</strong> We may collect information about your device, including device type, operating system, and unique device identifiers.</li>
-              <li><strong>Usage Data:</strong> Information about how you use the app, including features accessed and actions taken.</li>
+              <li><strong>Location Data:</strong> With your permission, we collect your device's foreground location to associate parking reminders with specific locations. We do not collect location data when the app is not in use.</li>
+              <li><strong>Device Information:</strong> We may collect basic device information for notification delivery.</li>
             </ul>
           </section>
 
@@ -71,12 +70,11 @@
             <p class="text-gray-600 mb-4">We use the information we collect to:</p>
             <ul class="list-disc list-inside text-gray-600 space-y-2">
               <li>Provide, maintain, and improve the Beat the Sweep app</li>
-              <li>Process and analyze parking sign images to extract street sweeping schedules</li>
+              <li>Process parking sign images via Google Cloud Vision to extract street sweeping schedules</li>
               <li>Send you push notifications and reminders about street sweeping times</li>
               <li>Associate reminders with your parking locations</li>
+              <li>Sync your reminders and saved locations across devices (for signed-in users)</li>
               <li>Respond to your comments, questions, and support requests</li>
-              <li>Monitor and analyze trends, usage, and activities</li>
-              <li>Detect, investigate, and prevent fraudulent or unauthorized activities</li>
             </ul>
           </section>
 
