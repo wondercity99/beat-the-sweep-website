@@ -12,7 +12,13 @@
       "Bash(git -C \"C:\\\\dev\\\\flutter-projects\\\\beat_the_sweep\" add android/app/src/main/AndroidManifest.xml pubspec.yaml)",
       "Bash(git -C \"C:\\\\dev\\\\flutter-projects\\\\beat_the_sweep\" commit -m \"$\\(cat <<''EOF''\nRemove USE_EXACT_ALARM permission and bump version to 1.0.4+6 for Play Store submission\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(npm run:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git rebase:*)",
+      "Bash(GIT_EDITOR=true git rebase --continue)",
+      "Bash(git stash:*)",
+      "Bash(find /Users/philthompson99/beatthesweep/beat_the_sweep_website -maxdepth 1 -type f -name *.md -o -name .cursor* -o -name .clauderc)",
+      "Bash(git:*)",
+      "Bash(grep -r vercel /Users/philthompson99/beatthesweep/beat_the_sweep_website --include=*.json --include=*.md --include=*.html)"
     ]
   }
 }
