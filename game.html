@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat the Sweep Game - Free Retro Parking Game</title>
+  <meta name="description" content="Play Beat the Sweep — a free retro arcade game where you dodge street sweepers and avoid parking tickets. Can you beat the sweep?">
+  <meta name="keywords" content="beat the sweep game, parking game, retro arcade game, street sweeper game, free browser game">
+  <link rel="canonical" href="https://beatthesweep.pro/game">
+  <link rel="icon" type="image/png" href="images/logo-512.png">
+  <link rel="apple-touch-icon" href="images/logo-512.png">
+  <meta property="og:title" content="Beat the Sweep Game - Free Retro Parking Game">
+  <meta property="og:description" content="Play Beat the Sweep — a free retro arcade game where you dodge street sweepers and avoid parking tickets.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://beatthesweep.pro/game">
+  <meta property="og:image" content="https://beatthesweep.pro/images/logo-512.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Beat the Sweep Game - Free Retro Parking Game">
+  <meta name="twitter:description" content="Play Beat the Sweep — a free retro arcade game where you dodge street sweepers and avoid parking tickets.">
+  <link rel="stylesheet" href="dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-white">
+  <!-- Navigation -->
+  <nav class="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <a href="/" class="flex items-center space-x-2">
+            <img src="images/logo-512.png" alt="Beat the Sweep logo" class="w-10 h-10 rounded-xl">
+            <span class="text-xl font-bold text-gray-900">Beat the Sweep</span>
+          </a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="/#features" class="nav-link">Features</a>
+          <a href="/#how-it-works" class="nav-link">How It Works</a>
+          <a href="/#contact" class="nav-link">Contact</a>
+          <a href="/#download" class="btn-primary text-sm py-2 px-6">Download App</a>
+        </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button type="button" class="text-gray-600 hover:text-gray-900" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+      <div class="px-4 py-4 space-y-3">
+        <a href="/#features" class="block nav-link">Features</a>
+        <a href="/#how-it-works" class="block nav-link">How It Works</a>
+        <a href="/#contact" class="block nav-link">Contact</a>
+        <a href="/#download" class="block btn-primary text-center text-sm py-2 px-6">Download App</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pt-24 pb-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Beat the Sweep</h1>
+      <p class="text-gray-600 mb-4">Dodge sweepers. Avoid traffic. Don't get a ticket.</p>
+      <div class="flex justify-center">
+        <canvas id="gameCanvas" width="340" height="680" class="border-4 border-gray-900 rounded-lg shadow-xl max-w-full" style="image-rendering: pixelated; touch-action: none;"></canvas>
+      </div>
+      <p id="instructions-desktop" class="text-sm text-gray-500 mt-4">Use <kbd class="px-2 py-0.5 bg-gray-200 rounded text-xs font-mono">Arrow Keys</kbd> to move &middot; <kbd class="px-2 py-0.5 bg-gray-200 rounded text-xs font-mono">Enter</kbd> to start</p>
+      <p id="instructions-mobile" class="text-sm text-gray-500 mt-4 hidden">Use the d-pad below to move &middot; Tap the game to start</p>
+      <!-- Mobile D-Pad -->
+      <div id="dpad" class="hidden mt-4 select-none" style="touch-action: none;">
+        <div class="flex flex-col items-center gap-1">
+          <button id="dpad-up" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move up">&#9650;</button>
+          <div class="flex gap-1">
+            <button id="dpad-left" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move left">&#9664;</button>
+            <div class="w-16 h-16"></div>
+            <button id="dpad-right" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move right">&#9654;</button>
+          </div>
+          <button id="dpad-down" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move down">&#9660;</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Game Script -->
+  <script>
+  (function() {
+    'use strict';
+
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+
+    // ── Layout constants ──
+    const CURB = 10;
+    const SHOULDER_W = 70;
+    const LANE_W = 90;
+    const DIVIDER_X = CURB + SHOULDER_W + LANE_W;
+    const ROAD_LEFT = CURB + SHOULDER_W;
+    const ROAD_RIGHT = CURB + SHOULDER_W + LANE_W * 2;
+    const RIGHT_SHOULDER_X = ROAD_RIGHT;
+    const PARKING_SPOTS = 8;
+    const SPOT_H = 72;
+    const SPOT_GAP = 6;
+    const SPOT_START_Y = 10;
+
+    // ── Car dimensions ──
+    const CAR_W = 32;
+    const CAR_H = 52;
+    const SWEEPER_W = 38;
+    const SWEEPER_H = 58;
+
+    // ── Physics ──
+    const ACCEL = 0.45;
+    const FRICTION = 0.88;
+    const MAX_SPEED = 4.5;
+
+    // ── HUD ──
+    const HUD_H = 50;
+
+    // ── Colors ──
+    const COL_ROAD = '#3a3a3a';
+    const COL_SHOULDER = '#555555';
+    const COL_CURB = '#888888';
+    const COL_GRASS = '#2d5a1e';
+    const COL_LINE_WHITE = '#ffffff';
+    const COL_SPOT_LINE = '#aaaaaa';
+    const COL_PLAYER = '#e11d1d';
+    const COL_PLAYER_DARK = '#a31515';
+    const COL_TRAFFIC = '#3b82f6';
+    const COL_TRAFFIC_DARK = '#1e40af';
+    const COL_SWEEPER = '#f59e0b';
+    const COL_SWEEPER_DARK = '#b45309';
+    const COL_SWEEPER_BRUSH = '#78716c';
+    const COL_PARKED = '#6b7280';
+    const COL_PARKED_DARK = '#4b5563';
+    const COL_TICKET_FLASH = '#fbbf24';
+    const COL_HUD_BG = '#111827';
+
+    // ── Game state ──
+    let state = 'title'; // title | playing | gameover
+    let player, keys, hearts, tickets, ticketCost, effects, sweepers, trafficCars, parkedCars;
+    let parkingSpots, heartPickup, heartPickupTimer;
+    let gameTime, difficulty, spawnTimerSweeper, spawnTimerTraffic;
+    let invincibleTimer, ticketInvincibleTimer;
+    let animFrame;
+
+    // ── Parking spot positions ──
+    function generateParkingSpots() {
+      const spots = [];
+      for (let side = 0; side < 2; side++) {
+        for (let i = 0; i < PARKING_SPOTS; i++) {
+          const x = side === 0
+            ? CURB + (SHOULDER_W - CAR_W) / 2
+            : RIGHT_SHOULDER_X + (SHOULDER_W - CAR_W) / 2;
+          const y = SPOT_START_Y + i * (SPOT_H + SPOT_GAP);
+          spots.push({ x, y, w: CAR_W, h: SPOT_H, side });
+        }
+      }
+      return spots;
+    }
+
+    function initParkedCars(spots) {
+      const parked = [];
+      spots.forEach(spot => {
+        if (Math.random() < 0.45) {
+          parked.push({
+            x: spot.x,
+            y: spot.y + (SPOT_H - CAR_H) / 2,
+            w: CAR_W,
+            h: CAR_H,
+            side: spot.side
+          });
+        }
+      });
+      return parked;
+    }
+
+    function resetGame() {
+      parkingSpots = generateParkingSpots();
+      parkedCars = initParkedCars(parkingSpots);
+      player = {
+        x: DIVIDER_X - CAR_W / 2,
+        y: H - HUD_H - CAR_H - 30,
+        w: CAR_W,
+        h: CAR_H,
+        vx: 0,
+        vy: 0
+      };
+      keys = {};
+      hearts = 3;
+      tickets = 0;
+      ticketCost = 0;
+      effects = [];
+      sweepers = [];
+      trafficCars = [];
+      heartPickup = null;
+      heartPickupTimer = 0;
+      gameTime = 0;
+      difficulty = 1;
+      spawnTimerSweeper = 0;
+      spawnTimerTraffic = 0;
+      invincibleTimer = 0;
+      ticketInvincibleTimer = 0;
+      state = 'playing';
+    }
+
+    // ── Heart pickup helpers ──
+    function getEmptySpots() {
+      return parkingSpots.filter(function(spot) {
+        const spotCenter = {
+          x: spot.x,
+          y: spot.y + (SPOT_H - CAR_H) / 2,
+          w: CAR_W,
+          h: CAR_H
+        };
+        for (const pc of parkedCars) {
+          if (rectsOverlap(spotCenter, pc)) return false;
+        }
+        return true;
+      });
+    }
+
+    function spawnHeartPickup() {
+      const empty = getEmptySpots();
+      if (empty.length === 0) return;
+      const spot = empty[Math.floor(Math.random() * empty.length)];
+      heartPickup = {
+        x: spot.x + CAR_W / 2,
+        y: spot.y + SPOT_H / 2,
+        timer: 0,
+        maxTime: 300 // 5 seconds at 60fps
+      };
+    }
+
+    // ── Input ──
+    document.addEventListener('keydown', function(e) {
+      if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter',' '].includes(e.key)) {
+        e.preventDefault();
+      }
+      keys[e.key] = true;
+
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (state === 'title' || state === 'gameover') {
+          resetGame();
+        }
+      }
+    });
+    document.addEventListener('keyup', function(e) {
+      keys[e.key] = false;
+    });
+
+    // Click/tap to start (solves focus issues with Live Server, iframes, etc.)
+    canvas.addEventListener('click', function() {
+      if (state === 'title' || state === 'gameover') {
+        resetGame();
+      }
+    });
+
+    // ── Mobile detection & d-pad ──
+    const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+      document.getElementById('dpad').classList.remove('hidden');
+      document.getElementById('instructions-mobile').classList.remove('hidden');
+      document.getElementById('instructions-desktop').classList.add('hidden');
+
+      // Wire up each d-pad button to simulate arrow keys
+      const dpadMap = {
+        'dpad-up': 'ArrowUp',
+        'dpad-down': 'ArrowDown',
+        'dpad-left': 'ArrowLeft',
+        'dpad-right': 'ArrowRight'
+      };
+
+      Object.entries(dpadMap).forEach(function([id, key]) {
+        const btn = document.getElementById(id);
+
+        btn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          keys[key] = true;
+        });
+        btn.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          keys[key] = false;
+        });
+        btn.addEventListener('touchcancel', function(e) {
+          e.preventDefault();
+          keys[key] = false;
+        });
+        // Also support mouse for testing on desktop
+        btn.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          keys[key] = true;
+        });
+        btn.addEventListener('mouseup', function(e) {
+          e.preventDefault();
+          keys[key] = false;
+        });
+        btn.addEventListener('mouseleave', function(e) {
+          keys[key] = false;
+        });
+      });
+    }
+
+    // ── Collision ──
+    function rectsOverlap(a, b) {
+      return a.x < b.x + b.w && a.x + a.w > b.x &&
+             a.y < b.y + b.h && a.y + a.h > b.y;
+    }
+
+    // ── Spawn logic ──
+    function spawnSweeper() {
+      // Pick a side (0=left shoulder, 1=right shoulder, 2=left lane, 3=right lane)
+      const r = Math.random();
+      let x, inShoulder;
+      if (r < 0.35) {
+        // Left shoulder
+        x = CURB + (SHOULDER_W - SWEEPER_W) / 2;
+        inShoulder = true;
+      } else if (r < 0.7) {
+        // Right shoulder
+        x = RIGHT_SHOULDER_X + (SHOULDER_W - SWEEPER_W) / 2;
+        inShoulder = true;
+      } else if (r < 0.85) {
+        // Left lane
+        x = ROAD_LEFT + (LANE_W - SWEEPER_W) / 2;
+        inShoulder = false;
+      } else {
+        // Right lane
+        x = ROAD_LEFT + LANE_W + (LANE_W - SWEEPER_W) / 2;
+        inShoulder = false;
+      }
+
+      // Don't spawn if another vehicle is still near the top in the same lane
+      const spawnZone = { x: x, y: -SWEEPER_H - 10, w: SWEEPER_W, h: SWEEPER_H + 50 };
+      for (const v of [...sweepers, ...trafficCars]) {
+        if (v.y < 60 && v.x < spawnZone.x + spawnZone.w + 6 && v.x + v.w + 6 > spawnZone.x) return;
+      }
+
+      const speed = 1.2 + difficulty * 0.25;
+      const sweeper = {
+        x, y: -SWEEPER_H - 10,
+        w: SWEEPER_W, h: SWEEPER_H,
+        vy: speed,
+        baseVy: speed,
+        baseX: x,
+        inShoulder,
+        dodging: false,
+        dodgeTargetX: x
+      };
+      sweepers.push(sweeper);
+    }
+
+    function spawnTrafficCar() {
+      const lane = Math.random() < 0.5 ? 0 : 1;
+      const x = ROAD_LEFT + lane * LANE_W + (LANE_W - CAR_W) / 2;
+
+      // Don't spawn if another vehicle is still near the top in the same lane
+      for (const v of [...sweepers, ...trafficCars]) {
+        if (v.y < 60 && v.x < x + CAR_W + 6 && v.x + v.w + 6 > x) return;
+      }
+
+      const speed = 1.5 + Math.random() * 1.5 + difficulty * 0.2;
+      trafficCars.push({
+        x, y: -CAR_H - 10,
+        w: CAR_W, h: CAR_H,
+        vy: speed,
+        baseVy: speed
+      });
+    }
+
+    // ── Effects ──
+    function addTicketEffect(x, y) {
+      effects.push({
+        x, y,
+        timer: 0,
+        maxTime: 50,
+        type: 'ticket'
+      });
+    }
+
+    function addCrashEffect(x, y) {
+      effects.push({
+        x, y,
+        timer: 0,
+        maxTime: 35,
+        type: 'crash'
+      });
+    }
+
+    // ── Drawing helpers ──
+    function drawCar(x, y, w, h, col, colDark) {
+      // Top = front of car (hood), bottom = rear (trunk)
+      // Cars travel top-to-bottom
+
+      // Body
+      ctx.fillStyle = col;
+      ctx.fillRect(x + 2, y, w - 4, h);
+
+      // ── Far side (top): Rear + red taillights ──
+      // Rear section (short)
+      ctx.fillStyle = colDark;
+      ctx.fillRect(x + 3, y + 1, w - 6, 8);
+      // Red taillights (far side)
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(x + 3, y, 6, 3);
+      ctx.fillRect(x + w - 9, y, 6, 3);
+
+      // ── Rear window (smaller, near top) ──
+      ctx.fillStyle = '#7dd3fc';
+      ctx.fillRect(x + 6, y + 10, w - 12, 5);
+      // Rear window glare
+      ctx.fillStyle = '#bae6fd';
+      ctx.fillRect(x + 7, y + 10, 3, 5);
+
+      // ── Roof (center of car) ──
+      ctx.fillStyle = colDark;
+      ctx.fillRect(x + 4, y + 16, w - 8, 10);
+
+      // ── Front windshield (larger, below roof) ──
+      ctx.fillStyle = '#7dd3fc';
+      ctx.fillRect(x + 5, y + 27, w - 10, 10);
+      // Windshield glare
+      ctx.fillStyle = '#bae6fd';
+      ctx.fillRect(x + 6, y + 27, 4, 10);
+
+      // ── Near side (bottom): Front hood + yellow headlights ──
+      // Hood (long front section)
+      ctx.fillStyle = colDark;
+      ctx.fillRect(x + 3, y + h - 14, w - 6, 14);
+      // Grille
+      ctx.fillStyle = '#374151';
+      ctx.fillRect(x + 10, y + h - 3, w - 20, 2);
+      // Yellow headlights (near side)
+      ctx.fillStyle = '#fef08a';
+      ctx.fillRect(x + 3, y + h - 4, 6, 4);
+      ctx.fillRect(x + w - 9, y + h - 4, 6, 4);
+      // Bumper
+      ctx.fillStyle = '#6b7280';
+      ctx.fillRect(x + 5, y + h - 1, w - 10, 1);
+
+      // ── Wheels (front pair near top, rear pair near bottom) ──
+      ctx.fillStyle = '#1a1a1a';
+      // Front wheels
+      ctx.fillRect(x - 1, y + 8, 4, 10);
+      ctx.fillRect(x + w - 3, y + 8, 4, 10);
+      // Rear wheels
+      ctx.fillRect(x - 1, y + h - 18, 4, 10);
+      ctx.fillRect(x + w - 3, y + h - 18, 4, 10);
+    }
+
+    function drawSweeper(x, y, w, h) {
+      const cx = x + w / 2;
+      const brushRadius = 16;
+      const brushAngle = (gameTime * 0.15); // rotation animation
+
+      // ── Large circular brooms (visible from above, protruding from body) ──
+      // Left brush — peeks out from left-rear of body
+      const lbx = x - 6;
+      const lby = y + h - 8;
+      ctx.save();
+      ctx.translate(lbx, lby);
+      ctx.rotate(brushAngle);
+      // Brush disc
+      ctx.beginPath();
+      ctx.arc(0, 0, brushRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#a8a29e';
+      ctx.fill();
+      ctx.strokeStyle = '#78716c';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Bristle pattern (radial lines)
+      ctx.strokeStyle = '#57534e';
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * 4, Math.sin(a) * 4);
+        ctx.lineTo(Math.cos(a) * (brushRadius - 2), Math.sin(a) * (brushRadius - 2));
+        ctx.stroke();
+      }
+      // Center hub
+      ctx.beginPath();
+      ctx.arc(0, 0, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#44403c';
+      ctx.fill();
+      ctx.restore();
+
+      // Right brush — peeks out from right-rear of body
+      const rbx = x + w + 6;
+      const rby = y + h - 8;
+      ctx.save();
+      ctx.translate(rbx, rby);
+      ctx.rotate(-brushAngle);
+      ctx.beginPath();
+      ctx.arc(0, 0, brushRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#a8a29e';
+      ctx.fill();
+      ctx.strokeStyle = '#78716c';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.strokeStyle = '#57534e';
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * 4, Math.sin(a) * 4);
+        ctx.lineTo(Math.cos(a) * (brushRadius - 2), Math.sin(a) * (brushRadius - 2));
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.arc(0, 0, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#44403c';
+      ctx.fill();
+      ctx.restore();
+
+      // ── Center rear brush (big one underneath, peeks out at back) ──
+      const cbx = cx;
+      const cby = y + h + 8;
+      ctx.save();
+      ctx.translate(cbx, cby);
+      ctx.rotate(brushAngle * 0.7);
+      ctx.beginPath();
+      ctx.arc(0, 0, brushRadius + 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#a8a29e';
+      ctx.fill();
+      ctx.strokeStyle = '#78716c';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.strokeStyle = '#57534e';
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 10; i++) {
+        const a = (i / 10) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * 5, Math.sin(a) * 5);
+        ctx.lineTo(Math.cos(a) * (brushRadius + 1), Math.sin(a) * (brushRadius + 1));
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.arc(0, 0, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#44403c';
+      ctx.fill();
+      ctx.restore();
+
+      // ── Dust/debris trail behind brushes ──
+      ctx.globalAlpha = 0.25;
+      ctx.fillStyle = '#d6d3d1';
+      for (let i = 0; i < 5; i++) {
+        const dx = (Math.sin(gameTime * 0.3 + i * 1.5)) * 12;
+        const dy = 16 + i * 6 + Math.sin(gameTime * 0.2 + i) * 3;
+        const r = 3 + Math.random() * 2;
+        ctx.beginPath();
+        ctx.arc(cx + dx, y + h + dy, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      // ── Body (larger, boxy) ──
+      ctx.fillStyle = COL_SWEEPER;
+      ctx.fillRect(x + 1, y, w - 2, h);
+      // Cab
+      ctx.fillStyle = COL_SWEEPER_DARK;
+      ctx.fillRect(x + 4, y + 4, w - 8, 16);
+      // Windshield
+      ctx.fillStyle = '#87ceeb';
+      ctx.fillRect(x + 6, y + 5, w - 12, 8);
+      // Hopper/tank area
+      ctx.fillStyle = '#d97706';
+      ctx.fillRect(x + 3, y + 24, w - 6, 20);
+      ctx.fillStyle = '#92400e';
+      ctx.fillRect(x + 5, y + 26, w - 10, 16);
+      // Warning light on top (flashing)
+      const flashOn = Math.sin(gameTime * 0.2) > 0;
+      ctx.fillStyle = flashOn ? '#fbbf24' : '#92400e';
+      ctx.beginPath();
+      ctx.arc(cx, y - 1, 4, 0, Math.PI * 2);
+      ctx.fill();
+      // Second warning light
+      ctx.fillStyle = !flashOn ? '#fb923c' : '#92400e';
+      ctx.beginPath();
+      ctx.arc(cx, y + 2, 3, 0, Math.PI * 2);
+      ctx.fill();
+      // Wheels
+      ctx.fillStyle = '#1a1a1a';
+      ctx.fillRect(x - 1, y + 18, 4, 12);
+      ctx.fillRect(x + w - 3, y + 18, 4, 12);
+      ctx.fillRect(x - 1, y + h - 20, 4, 12);
+      ctx.fillRect(x + w - 3, y + h - 20, 4, 12);
+    }
+
+    function drawParkedCar(x, y, w, h) {
+      drawCar(x, y, w, h, COL_PARKED, COL_PARKED_DARK);
+    }
+
+    function drawEffect(effect) {
+      const progress = effect.timer / effect.maxTime;
+
+      if (effect.type === 'ticket') {
+        // Expanding explosion circle
+        const radius = 10 + progress * 40;
+        const alpha = 1 - progress;
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = COL_TICKET_FLASH;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(effect.x, effect.y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Inner flash
+        ctx.fillStyle = COL_TICKET_FLASH;
+        ctx.globalAlpha = alpha * 0.4;
+        ctx.beginPath();
+        ctx.arc(effect.x, effect.y, radius * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Star/spark particles
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = '#fff';
+        for (let i = 0; i < 6; i++) {
+          const angle = (i / 6) * Math.PI * 2 + progress * 3;
+          const dist = radius * 0.8;
+          const px = effect.x + Math.cos(angle) * dist;
+          const py = effect.y + Math.sin(angle) * dist;
+          ctx.fillRect(px - 2, py - 2, 4, 4);
+        }
+
+        // Floating "$25" text
+        if (progress < 0.8) {
+          ctx.globalAlpha = Math.min(1, (0.8 - progress) * 3);
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 16px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('TICKET!', effect.x, effect.y - 10 - progress * 30);
+          ctx.fillStyle = COL_TICKET_FLASH;
+          ctx.font = 'bold 14px monospace';
+          ctx.fillText('$25', effect.x, effect.y + 6 - progress * 30);
+        }
+        ctx.globalAlpha = 1;
+      } else if (effect.type === 'crash') {
+        const radius = 8 + progress * 30;
+        const alpha = 1 - progress;
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = '#ef4444';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(effect.x, effect.y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = '#ef4444';
+        ctx.globalAlpha = alpha * 0.3;
+        ctx.beginPath();
+        ctx.arc(effect.x, effect.y, radius * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (progress < 0.7) {
+          ctx.globalAlpha = Math.min(1, (0.7 - progress) * 3);
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 16px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('CRASH!', effect.x, effect.y - 10 - progress * 25);
+        }
+        ctx.globalAlpha = 1;
+      } else if (effect.type === 'heart') {
+        const alpha = 1 - progress;
+        ctx.globalAlpha = alpha;
+        // Floating heart + "+1" text
+        const floatY = effect.y - progress * 40;
+        drawHeart(effect.x, floatY - 4, 12, true);
+        ctx.fillStyle = '#22c55e';
+        ctx.font = 'bold 16px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('+1 LIFE', effect.x, floatY - 18);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function drawHeart(x, y, size, filled) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.beginPath();
+      ctx.moveTo(0, size * 0.3);
+      ctx.bezierCurveTo(-size * 0.5, -size * 0.3, -size, size * 0.1, 0, size);
+      ctx.bezierCurveTo(size, size * 0.1, size * 0.5, -size * 0.3, 0, size * 0.3);
+      ctx.closePath();
+      ctx.fillStyle = filled ? '#ef4444' : '#374151';
+      ctx.fill();
+      if (filled) {
+        ctx.strokeStyle = '#dc2626';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // ── Road drawing ──
+    function drawRoad() {
+      // Background (curb color fills any gaps)
+      ctx.fillStyle = COL_CURB;
+      ctx.fillRect(0, 0, W, H);
+
+      // Curbs
+      ctx.fillStyle = COL_CURB;
+      ctx.fillRect(0, 0, CURB, H);
+      ctx.fillRect(W - CURB, 0, CURB, H);
+
+      // Shoulders
+      ctx.fillStyle = COL_SHOULDER;
+      ctx.fillRect(CURB, 0, SHOULDER_W, H);
+      ctx.fillRect(RIGHT_SHOULDER_X, 0, SHOULDER_W, H);
+
+      // Road
+      ctx.fillStyle = COL_ROAD;
+      ctx.fillRect(ROAD_LEFT, 0, LANE_W * 2, H);
+
+      // Road edge lines (solid white)
+      ctx.strokeStyle = COL_LINE_WHITE;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(ROAD_LEFT, 0);
+      ctx.lineTo(ROAD_LEFT, H);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(ROAD_RIGHT, 0);
+      ctx.lineTo(ROAD_RIGHT, H);
+      ctx.stroke();
+
+      // Center dashed line (static)
+      ctx.strokeStyle = COL_LINE_WHITE;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([20, 15]);
+      ctx.beginPath();
+      ctx.moveTo(DIVIDER_X, 0);
+      ctx.lineTo(DIVIDER_X, H);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Parking spot lines
+      ctx.strokeStyle = COL_SPOT_LINE;
+      ctx.lineWidth = 1;
+      for (let side = 0; side < 2; side++) {
+        const baseX = side === 0 ? CURB : RIGHT_SHOULDER_X;
+        for (let i = 0; i <= PARKING_SPOTS; i++) {
+          const y = SPOT_START_Y + i * (SPOT_H + SPOT_GAP);
+          ctx.beginPath();
+          ctx.moveTo(baseX, y);
+          ctx.lineTo(baseX + SHOULDER_W, y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // ── HUD ──
+    function drawHUD() {
+      // HUD background
+      ctx.fillStyle = COL_HUD_BG;
+      ctx.fillRect(0, H - HUD_H, W, HUD_H);
+
+      // Divider line
+      ctx.strokeStyle = '#374151';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, H - HUD_H);
+      ctx.lineTo(W, H - HUD_H);
+      ctx.stroke();
+
+      // Hearts (show max of hearts or 3, whichever is larger)
+      const heartY = H - HUD_H + 18;
+      const heartsToShow = Math.max(3, hearts);
+      for (let i = 0; i < heartsToShow; i++) {
+        drawHeart(25 + i * 26, heartY, 11, i < hearts);
+      }
+
+      // Hearts label
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('LIVES', 15, H - HUD_H + 14);
+
+      // Tickets
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('TICKETS', W / 2, H - HUD_H + 14);
+
+      ctx.fillStyle = COL_TICKET_FLASH;
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText(String(tickets), W / 2, H - HUD_H + 36);
+
+      // Cost
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'right';
+      ctx.fillText('FINES', W - 15, H - HUD_H + 14);
+
+      ctx.fillStyle = ticketCost > 0 ? '#ef4444' : '#6b7280';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText('$' + ticketCost, W - 15, H - HUD_H + 36);
+    }
+
+    // ── Title screen ──
+    function drawTitle() {
+      drawRoad();
+      // Overlay
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.textAlign = 'center';
+
+      // Title
+      ctx.fillStyle = COL_SWEEPER;
+      ctx.font = 'bold 28px monospace';
+      ctx.fillText('BEAT THE SWEEP', W / 2, H / 2 - 74);
+      ctx.fillStyle = COL_PLAYER;
+      ctx.font = 'bold 30px monospace';
+      ctx.fillText('THE GAME!', W / 2, H / 2 - 38);
+
+      // Car preview
+      drawCar(W / 2 - CAR_W / 2, H / 2 - 10, CAR_W, CAR_H, COL_PLAYER, COL_PLAYER_DARK);
+
+      // Instructions
+      ctx.fillStyle = '#d1d5db';
+      ctx.font = '13px monospace';
+      ctx.fillText(isTouchDevice ? 'D-pad to move' : 'Arrow keys to move', W / 2, H / 2 + 70);
+      ctx.fillText('Dodge sweepers & traffic', W / 2, H / 2 + 90);
+
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '11px monospace';
+      ctx.fillText('Sweeper hit = $25 ticket', W / 2, H / 2 + 120);
+      ctx.fillText('Car crash = lose a life', W / 2, H / 2 + 138);
+
+      // Blink prompt
+      if (Math.sin(Date.now() * 0.005) > 0) {
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 16px monospace';
+        ctx.fillText(isTouchDevice ? 'TAP TO START' : 'CLICK OR PRESS ENTER', W / 2, H / 2 + 180);
+      }
+    }
+
+    // ── Game over screen ──
+    function drawGameOver() {
+      // Overlay
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.textAlign = 'center';
+
+      ctx.fillStyle = '#ef4444';
+      ctx.font = 'bold 32px monospace';
+      ctx.fillText('GAME OVER', W / 2, H / 2 - 80);
+
+      ctx.fillStyle = '#d1d5db';
+      ctx.font = '15px monospace';
+      ctx.fillText('Tickets issued:', W / 2, H / 2 - 35);
+
+      ctx.fillStyle = COL_TICKET_FLASH;
+      ctx.font = 'bold 28px monospace';
+      ctx.fillText(String(tickets), W / 2, H / 2);
+
+      ctx.fillStyle = '#d1d5db';
+      ctx.font = '15px monospace';
+      ctx.fillText('Total fines:', W / 2, H / 2 + 35);
+
+      ctx.fillStyle = '#ef4444';
+      ctx.font = 'bold 28px monospace';
+      ctx.fillText('$' + ticketCost, W / 2, H / 2 + 68);
+
+      // Survival time
+      const secs = Math.floor(gameTime / 60);
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '13px monospace';
+      ctx.fillText('Survived ' + secs + ' seconds', W / 2, H / 2 + 105);
+
+      if (Math.sin(Date.now() * 0.005) > 0) {
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 14px monospace';
+        ctx.fillText(isTouchDevice ? 'TAP TO PLAY AGAIN' : 'CLICK OR ENTER TO RETRY', W / 2, H / 2 + 150);
+      }
+    }
+
+    // ── Vehicle-to-vehicle avoidance ──
+    // Returns all NPC vehicles (sweepers + traffic) as a flat list for avoidance checks
+    function getAllNPCVehicles() {
+      const all = [];
+      for (const sw of sweepers) all.push(sw);
+      for (const tc of trafficCars) all.push(tc);
+      return all;
+    }
+
+    function avoidOtherVehicles(vehicle, allVehicles) {
+      const lookAhead = 100;  // how far ahead to scan
+      const safeGap = 30;     // desired comfortable following distance
+      let blocked = false;
+
+      for (const other of allVehicles) {
+        if (other === vehicle) continue;
+
+        // Only care about vehicles roughly in the same horizontal lane
+        const horizOverlap = vehicle.x < other.x + other.w + 6 &&
+                             vehicle.x + vehicle.w + 6 > other.x;
+        if (!horizOverlap) continue;
+
+        // Gap from front of this vehicle to rear of other
+        const gap = other.y - (vehicle.y + vehicle.h);
+
+        // Hard overlap prevention — immediately separate
+        if (gap < 0 && gap > -(vehicle.h + other.h)) {
+          blocked = true;
+          vehicle.y = other.y - vehicle.h - safeGap;
+          vehicle.vy = Math.min(vehicle.vy, (other.baseVy || other.vy) * 0.8);
+          continue;
+        }
+
+        // Within look-ahead range
+        if (gap >= 0 && gap < lookAhead) {
+          blocked = true;
+          const otherSpeed = other.baseVy || other.vy;
+
+          if (gap < safeGap) {
+            // Too close — actively back off by going slower than the car ahead
+            const urgency = 1 - (gap / safeGap); // 1 = touching, 0 = at safe distance
+            vehicle.vy = otherSpeed * (0.6 + 0.4 * (1 - urgency));
+            // Also nudge position back to enforce the gap
+            if (gap < 10) {
+              vehicle.y -= (10 - gap) * 0.3;
+            }
+          } else {
+            // Approaching but not too close — ease off gradually
+            const brakeFactor = (gap - safeGap) / (lookAhead - safeGap);
+            const targetVy = otherSpeed + (vehicle.baseVy - otherSpeed) * brakeFactor;
+            vehicle.vy = Math.min(vehicle.vy, targetVy);
+          }
+        }
+      }
+
+      // Restore base speed when clear
+      if (!blocked && vehicle.baseVy) {
+        vehicle.vy += (vehicle.baseVy - vehicle.vy) * 0.08;
+      }
+    }
+
+    // ── Sweeper AI: dodge parked cars ──
+    function updateSweeperDodge(sw) {
+      if (!sw.inShoulder) return;
+
+      // Check if any parked car is ahead
+      let needsDodge = false;
+      for (const pc of parkedCars) {
+        if (Math.abs(pc.x - sw.baseX) < SWEEPER_W &&
+            pc.y > sw.y && pc.y < sw.y + SWEEPER_H + 40) {
+          needsDodge = true;
+          break;
+        }
+      }
+
+      if (needsDodge && !sw.dodging) {
+        sw.dodging = true;
+        // Move into the nearest lane
+        if (sw.baseX < W / 2) {
+          sw.dodgeTargetX = ROAD_LEFT + (LANE_W - SWEEPER_W) / 2;
+        } else {
+          sw.dodgeTargetX = ROAD_LEFT + LANE_W + (LANE_W - SWEEPER_W) / 2;
+        }
+      }
+
+      if (sw.dodging) {
+        // Smoothly move toward dodge target
+        const dx = sw.dodgeTargetX - sw.x;
+        sw.x += dx * 0.08;
+
+        // Check if we've passed the parked car
+        let stillBlocked = false;
+        for (const pc of parkedCars) {
+          if (Math.abs(pc.x - sw.baseX) < SWEEPER_W &&
+              pc.y > sw.y - 20 && pc.y < sw.y + SWEEPER_H + 20) {
+            stillBlocked = true;
+            break;
+          }
+        }
+        if (!stillBlocked) {
+          sw.dodging = false;
+          sw.dodgeTargetX = sw.baseX;
+        }
+      } else {
+        // Return to shoulder
+        const dx = sw.baseX - sw.x;
+        sw.x += dx * 0.08;
+      }
+    }
+
+    // ── Main update ──
+    function update() {
+      if (state !== 'playing') return;
+
+      gameTime++;
+
+      // Difficulty ramp (like Tetris — every ~20 seconds)
+      difficulty = 1 + Math.floor(gameTime / 1200) * 0.5;
+
+      // ── Player physics ──
+      if (keys['ArrowLeft'])  player.vx -= ACCEL;
+      if (keys['ArrowRight']) player.vx += ACCEL;
+      if (keys['ArrowUp'])    player.vy -= ACCEL;
+      if (keys['ArrowDown'])  player.vy += ACCEL;
+
+      player.vx *= FRICTION;
+      player.vy *= FRICTION;
+
+      // Clamp speed
+      const speed = Math.sqrt(player.vx * player.vx + player.vy * player.vy);
+      if (speed > MAX_SPEED) {
+        player.vx = (player.vx / speed) * MAX_SPEED;
+        player.vy = (player.vy / speed) * MAX_SPEED;
+      }
+
+      player.x += player.vx;
+      player.y += player.vy;
+
+      // Boundaries (keep in play area, above HUD)
+      player.x = Math.max(CURB, Math.min(W - CURB - player.w, player.x));
+      player.y = Math.max(0, Math.min(H - HUD_H - player.h, player.y));
+
+      // ── Invincibility timers ──
+      if (invincibleTimer > 0) invincibleTimer--;
+      if (ticketInvincibleTimer > 0) ticketInvincibleTimer--;
+
+      // ── Spawn sweepers ──
+      spawnTimerSweeper++;
+      const sweeperInterval = Math.max(80, 240 - difficulty * 30);
+      if (spawnTimerSweeper >= sweeperInterval) {
+        spawnTimerSweeper = 0;
+        spawnSweeper();
+      }
+
+      // ── Spawn traffic ──
+      spawnTimerTraffic++;
+      const trafficInterval = Math.max(40, 120 - difficulty * 15);
+      if (spawnTimerTraffic >= trafficInterval) {
+        spawnTimerTraffic = 0;
+        spawnTrafficCar();
+      }
+
+      // ── Gather all NPC vehicles for avoidance ──
+      const allNPCs = getAllNPCVehicles();
+
+      // ── Update sweepers ──
+      for (let i = sweepers.length - 1; i >= 0; i--) {
+        const sw = sweepers[i];
+        avoidOtherVehicles(sw, allNPCs);
+        sw.y += sw.vy;
+        updateSweeperDodge(sw);
+
+        // Remove if off screen
+        if (sw.y > H + 20) {
+          sweepers.splice(i, 1);
+          continue;
+        }
+
+        // Collision with player (expanded hitbox includes brushes)
+        // Brushes extend ~22px left, ~22px right, and ~28px below body
+        const swHitbox = {
+          x: sw.x - 22,
+          y: sw.y,
+          w: sw.w + 44,
+          h: sw.h + 28
+        };
+        if (rectsOverlap(player, swHitbox)) {
+          if (ticketInvincibleTimer <= 0) {
+            tickets++;
+            ticketCost += 25;
+            ticketInvincibleTimer = 60; // ~1 second grace
+            addTicketEffect(player.x + player.w / 2, player.y + player.h / 2);
+          }
+        }
+      }
+
+      // ── Update traffic cars ──
+      for (let i = trafficCars.length - 1; i >= 0; i--) {
+        const tc = trafficCars[i];
+        avoidOtherVehicles(tc, allNPCs);
+        tc.y += tc.vy;
+
+        if (tc.y > H + 20) {
+          trafficCars.splice(i, 1);
+          continue;
+        }
+
+        if (rectsOverlap(player, tc)) {
+          if (invincibleTimer <= 0) {
+            hearts--;
+            invincibleTimer = 90; // ~1.5 seconds grace
+            addCrashEffect(player.x + player.w / 2, player.y + player.h / 2);
+            // Knock player back
+            player.vy = -3;
+            if (hearts <= 0) {
+              state = 'gameover';
+            }
+          }
+        }
+      }
+
+      // ── Collision with parked cars ──
+      for (const pc of parkedCars) {
+        if (rectsOverlap(player, pc)) {
+          // Push player out
+          const overlapLeft = (player.x + player.w) - pc.x;
+          const overlapRight = (pc.x + pc.w) - player.x;
+          const overlapTop = (player.y + player.h) - pc.y;
+          const overlapBottom = (pc.y + pc.h) - player.y;
+          const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
+
+          if (minOverlap === overlapLeft) { player.x = pc.x - player.w; player.vx = -Math.abs(player.vx) * 0.3; }
+          else if (minOverlap === overlapRight) { player.x = pc.x + pc.w; player.vx = Math.abs(player.vx) * 0.3; }
+          else if (minOverlap === overlapTop) { player.y = pc.y - player.h; player.vy = -Math.abs(player.vy) * 0.3; }
+          else { player.y = pc.y + pc.h; player.vy = Math.abs(player.vy) * 0.3; }
+        }
+      }
+
+      // ── Heart pickup ──
+      heartPickupTimer++;
+      // Spawn a heart every ~15-25 seconds if none active
+      const heartSpawnInterval = 900 + Math.floor(Math.random() * 600);
+      if (!heartPickup && heartPickupTimer >= heartSpawnInterval) {
+        heartPickupTimer = 0;
+        spawnHeartPickup();
+      }
+      if (heartPickup) {
+        heartPickup.timer++;
+        // Check if player collected it
+        const hpRect = {
+          x: heartPickup.x - 14,
+          y: heartPickup.y - 14,
+          w: 28,
+          h: 28
+        };
+        if (rectsOverlap(player, hpRect)) {
+          hearts++;
+          effects.push({
+            x: heartPickup.x,
+            y: heartPickup.y,
+            timer: 0,
+            maxTime: 40,
+            type: 'heart'
+          });
+          heartPickup = null;
+          heartPickupTimer = 0;
+        } else if (heartPickup.timer >= heartPickup.maxTime) {
+          // Expired
+          heartPickup = null;
+          heartPickupTimer = 0;
+        }
+      }
+
+      // ── Update effects ──
+      for (let i = effects.length - 1; i >= 0; i--) {
+        effects[i].timer++;
+        if (effects[i].timer >= effects[i].maxTime) {
+          effects.splice(i, 1);
+        }
+      }
+    }
+
+    // ── Main draw ──
+    function draw() {
+      drawRoad();
+
+      // Parked cars
+      for (const pc of parkedCars) {
+        drawParkedCar(pc.x, pc.y, pc.w, pc.h);
+      }
+
+      // Heart pickup (blinking)
+      if (heartPickup) {
+        const hp = heartPickup;
+        const remaining = hp.maxTime - hp.timer;
+        // Blink faster as time runs out
+        const blinkRate = remaining < 90 ? 0.25 : 0.12;
+        const visible = Math.sin(hp.timer * blinkRate) > -0.3;
+        if (visible) {
+          // Glow behind heart
+          ctx.globalAlpha = 0.3 + Math.sin(hp.timer * 0.1) * 0.15;
+          ctx.fillStyle = '#fca5a5';
+          ctx.beginPath();
+          ctx.arc(hp.x, hp.y, 18, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+          // Draw heart
+          drawHeart(hp.x, hp.y - 4, 14, true);
+        }
+      }
+
+      // Sweepers
+      for (const sw of sweepers) {
+        drawSweeper(sw.x, sw.y, sw.w, sw.h);
+      }
+
+      // Traffic cars
+      for (const tc of trafficCars) {
+        drawCar(tc.x, tc.y, tc.w, tc.h, COL_TRAFFIC, COL_TRAFFIC_DARK);
+      }
+
+      // Player (blink if invincible)
+      if (invincibleTimer > 0 && Math.floor(gameTime / 4) % 2 === 0) {
+        // Skip drawing (blink effect)
+      } else {
+        drawCar(player.x, player.y, player.w, player.h, COL_PLAYER, COL_PLAYER_DARK);
+      }
+
+      // Effects
+      for (const eff of effects) {
+        drawEffect(eff);
+      }
+
+      // HUD
+      drawHUD();
+    }
+
+    // ── Game loop ──
+    function gameLoop() {
+      if (state === 'title') {
+        drawTitle();
+      } else if (state === 'playing') {
+        update();
+        draw();
+      } else if (state === 'gameover') {
+        draw();
+        drawGameOver();
+      }
+      animFrame = requestAnimationFrame(gameLoop);
+    }
+
+    // Start
+    state = 'title';
+    gameLoop();
+  })();
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center space-x-2 mb-4">
+            <img src="images/logo-512.png" alt="Beat the Sweep logo" class="w-10 h-10 rounded-xl">
+            <span class="text-xl font-bold text-white">Beat the Sweep</span>
+          </div>
+          <p class="text-sm max-w-md">The smart way to avoid street sweeping tickets. Snap, save, and never worry about parking again.</p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-4">Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="/#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+            <li><a href="/#contact" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-4">Legal</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="/terms" class="hover:text-white transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-12 pt-8 text-sm text-center">
+        <p>&copy; 2026 Beat the Sweep. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+    });
+  </script>
+</body>
+</html>
