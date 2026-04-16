@@ -72,19 +72,7 @@
         <canvas id="gameCanvas" width="340" height="680" class="border-4 border-gray-900 rounded-lg shadow-xl max-w-full" style="image-rendering: pixelated; touch-action: none;"></canvas>
       </div>
       <p id="instructions-desktop" class="text-sm text-gray-500 mt-4">Use <kbd class="px-2 py-0.5 bg-gray-200 rounded text-xs font-mono">Arrow Keys</kbd> to move &middot; <kbd class="px-2 py-0.5 bg-gray-200 rounded text-xs font-mono">Enter</kbd> to start</p>
-      <p id="instructions-mobile" class="text-sm text-gray-500 mt-4 hidden">Use the d-pad below to move &middot; Tap the game to start</p>
-      <!-- Mobile D-Pad -->
-      <div id="dpad" class="hidden mt-4 select-none" style="touch-action: none;">
-        <div class="flex flex-col items-center gap-1">
-          <button id="dpad-up" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move up">&#9650;</button>
-          <div class="flex gap-1">
-            <button id="dpad-left" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move left">&#9664;</button>
-            <div class="w-16 h-16"></div>
-            <button id="dpad-right" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move right">&#9654;</button>
-          </div>
-          <button id="dpad-down" class="w-16 h-16 bg-gray-800 text-white rounded-lg text-2xl font-bold active:bg-sweep-blue flex items-center justify-center" aria-label="Move down">&#9660;</button>
-        </div>
-      </div>
+      <p id="instructions-mobile" class="text-sm text-gray-500 mt-4 hidden">Touch &amp; drag to steer &middot; Tap to start</p>
     </div>
   </main>
 
@@ -264,48 +252,55 @@
       }
     });
 
-    // ── Mobile detection & d-pad ──
+    // ── Mobile detection & touch steering ──
     const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    let touchActive = false;
+    let touchX = 0;
+    let touchY = 0;
+
     if (isTouchDevice) {
-      document.getElementById('dpad').classList.remove('hidden');
       document.getElementById('instructions-mobile').classList.remove('hidden');
       document.getElementById('instructions-desktop').classList.add('hidden');
 
-      // Wire up each d-pad button to simulate arrow keys
-      const dpadMap = {
-        'dpad-up': 'ArrowUp',
-        'dpad-down': 'ArrowDown',
-        'dpad-left': 'ArrowLeft',
-        'dpad-right': 'ArrowRight'
-      };
+      function getTouchPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = W / rect.width;
+        const scaleY = H / rect.height;
+        const touch = e.touches[0];
+        return {
+          x: (touch.clientX - rect.left) * scaleX,
+          y: (touch.clientY - rect.top) * scaleY
+        };
+      }
 
-      Object.entries(dpadMap).forEach(function([id, key]) {
-        const btn = document.getElementById(id);
+      canvas.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        if (state === 'title' || state === 'gameover') {
+          resetGame();
+          return;
+        }
+        touchActive = true;
+        const pos = getTouchPos(e);
+        touchX = pos.x;
+        touchY = pos.y;
+      });
 
-        btn.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-          keys[key] = true;
-        });
-        btn.addEventListener('touchend', function(e) {
-          e.preventDefault();
-          keys[key] = false;
-        });
-        btn.addEventListener('touchcancel', function(e) {
-          e.preventDefault();
-          keys[key] = false;
-        });
-        // Also support mouse for testing on desktop
-        btn.addEventListener('mousedown', function(e) {
-          e.preventDefault();
-          keys[key] = true;
-        });
-        btn.addEventListener('mouseup', function(e) {
-          e.preventDefault();
-          keys[key] = false;
-        });
-        btn.addEventListener('mouseleave', function(e) {
-          keys[key] = false;
-        });
+      canvas.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        if (!touchActive || state !== 'playing') return;
+        const pos = getTouchPos(e);
+        touchX = pos.x;
+        touchY = pos.y;
+      });
+
+      canvas.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        touchActive = false;
+      });
+
+      canvas.addEventListener('touchcancel', function(e) {
+        e.preventDefault();
+        touchActive = false;
       });
     }
 
@@ -1003,10 +998,25 @@
       difficulty = 1 + Math.floor(gameTime / 1200) * 0.5;
 
       // ── Player physics ──
+      // Keyboard input
       if (keys['ArrowLeft'])  player.vx -= ACCEL;
       if (keys['ArrowRight']) player.vx += ACCEL;
       if (keys['ArrowUp'])    player.vy -= ACCEL;
       if (keys['ArrowDown'])  player.vy += ACCEL;
+
+      // Touch input — accelerate toward touch point
+      if (touchActive && state === 'playing') {
+        const pcx = player.x + player.w / 2;
+        const pcy = player.y + player.h / 2;
+        const dx = touchX - pcx;
+        const dy = touchY - pcy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        // Dead zone of 10px to avoid jitter when finger is on the car
+        if (dist > 10) {
+          player.vx += (dx / dist) * ACCEL * 1.1;
+          player.vy += (dy / dist) * ACCEL * 1.1;
+        }
+      }
 
       player.vx *= FRICTION;
       player.vy *= FRICTION;
