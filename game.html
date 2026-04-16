@@ -64,17 +64,48 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="pt-24 pb-20">
+  <main class="pt-20 pb-4 md:pt-24 md:pb-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Beat the Sweep</h1>
-      <p class="text-gray-600 mb-4">Dodge sweepers. Avoid traffic. Don't get a ticket.</p>
-      <div class="flex justify-center">
-        <canvas id="gameCanvas" width="340" height="680" class="border-4 border-gray-900 rounded-lg shadow-xl max-w-full" style="image-rendering: pixelated; touch-action: none;"></canvas>
+      <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-1 md:mb-2">Beat the Sweep</h1>
+      <p class="text-gray-600 mb-2 md:mb-4 text-sm md:text-base">Dodge sweepers. Avoid traffic. Don't get a ticket.</p>
+      <div class="flex justify-center" id="canvas-wrapper">
+        <canvas id="gameCanvas" width="340" height="680" class="border-4 border-gray-900 rounded-lg shadow-xl" style="image-rendering: pixelated; touch-action: none;"></canvas>
       </div>
       <p id="instructions-desktop" class="text-sm text-gray-500 mt-4">Use <kbd class="px-2 py-0.5 bg-gray-200 rounded text-xs font-mono">Arrow Keys</kbd> to move &middot; <kbd class="px-2 py-0.5 bg-gray-200 rounded text-xs font-mono">Enter</kbd> to start</p>
-      <p id="instructions-mobile" class="text-sm text-gray-500 mt-4 hidden">Touch &amp; drag to steer &middot; Tap to start</p>
+      <p id="instructions-mobile" class="text-sm text-gray-500 mt-2 hidden">Touch &amp; drag to steer &middot; Tap to start</p>
     </div>
   </main>
+
+  <script>
+  // Resize canvas to fit viewport on mobile
+  (function() {
+    var canvas = document.getElementById('gameCanvas');
+    function resizeCanvas() {
+      // Available height: viewport minus nav (64px) minus top padding and text above canvas (~80px mobile) minus bottom padding (16px)
+      var navHeight = 64;
+      var headerSpace = 72;
+      var bottomSpace = 40;
+      var availH = window.innerHeight - navHeight - headerSpace - bottomSpace;
+      var availW = window.innerWidth - 32; // 16px padding each side
+      // Canvas native aspect ratio
+      var aspect = 340 / 680;
+      // Fit to available space, maintaining aspect ratio
+      var displayH = Math.min(680, availH);
+      var displayW = displayH * aspect;
+      if (displayW > availW) {
+        displayW = availW;
+        displayH = displayW / aspect;
+      }
+      canvas.style.width = Math.floor(displayW) + 'px';
+      canvas.style.height = Math.floor(displayH) + 'px';
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', function() {
+      setTimeout(resizeCanvas, 100);
+    });
+  })();
+  </script>
 
   <!-- Game Script -->
   <script>
@@ -1011,10 +1042,13 @@
         const dx = touchX - pcx;
         const dy = touchY - pcy;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        // Dead zone of 10px to avoid jitter when finger is on the car
-        if (dist > 10) {
-          player.vx += (dx / dist) * ACCEL * 1.1;
-          player.vy += (dy / dist) * ACCEL * 1.1;
+        // Dead zone of 8px to avoid jitter when finger is on the car
+        if (dist > 8) {
+          // Scale force by distance — further drag = stronger push, capped at 2x
+          const distScale = Math.min(2, dist / 60);
+          const touchAccel = ACCEL * 1.8 * distScale;
+          player.vx += (dx / dist) * touchAccel;
+          player.vy += (dy / dist) * touchAccel;
         }
       }
 
