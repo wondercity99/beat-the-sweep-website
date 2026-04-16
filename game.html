@@ -1035,16 +1035,17 @@
       if (keys['ArrowUp'])    player.vy -= ACCEL;
       if (keys['ArrowDown'])  player.vy += ACCEL;
 
-      // Touch input — accelerate toward touch point
+      // Touch input — car targets a point above the finger so it stays visible
       if (touchActive && state === 'playing') {
+        const TOUCH_OFFSET_Y = 90; // car hovers this many px above the finger
         const pcx = player.x + player.w / 2;
         const pcy = player.y + player.h / 2;
-        const dx = touchX - pcx;
-        const dy = touchY - pcy;
+        const targetX = touchX;
+        const targetY = touchY - TOUCH_OFFSET_Y;
+        const dx = targetX - pcx;
+        const dy = targetY - pcy;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        // Dead zone of 8px to avoid jitter when finger is on the car
         if (dist > 8) {
-          // Scale force by distance — further drag = stronger push, capped at 2x
           const distScale = Math.min(2, dist / 60);
           const touchAccel = ACCEL * 1.8 * distScale;
           player.vx += (dx / dist) * touchAccel;
