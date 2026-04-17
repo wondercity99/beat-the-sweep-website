@@ -27,16 +27,22 @@
     body { font-family: 'Inter', sans-serif; }
     #map { height: 70vh; min-height: 500px; width: 100%; border-radius: 0.75rem; }
     .locate-btn {
-      background: white;
-      border: 2px solid rgba(0,0,0,0.2);
-      border-radius: 4px;
-      padding: 5px 8px;
+      background: #519bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
       line-height: 1;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .locate-btn:hover { background: #f4f4f4; }
+    .locate-btn:hover { background: #3d7ed9; }
     .locate-btn.locating { animation: pulse-locate 1s infinite; }
     @keyframes pulse-locate {
       0%, 100% { opacity: 1; }
@@ -303,7 +309,7 @@
     var locateControl = L.control({ position: 'topleft' });
     locateControl.onAdd = function() {
       var btn = L.DomUtil.create('div', 'locate-btn');
-      btn.innerHTML = '&#9737;';
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg><span>Find My Location</span>';
       btn.title = 'Find my location';
       L.DomEvent.disableClickPropagation(btn);
 
