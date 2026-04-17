@@ -21,8 +21,51 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <style>
     body { font-family: 'Inter', sans-serif; }
+    #map { height: 70vh; min-height: 500px; width: 100%; border-radius: 0.75rem; }
+    .locate-btn {
+      background: white;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-radius: 4px;
+      padding: 5px 8px;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+    }
+    .locate-btn:hover { background: #f4f4f4; }
+    .locate-btn.locating { animation: pulse-locate 1s infinite; }
+    @keyframes pulse-locate {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .legend {
+      background: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      font-size: 12px;
+      line-height: 1.6;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .legend-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-swatch {
+      width: 24px; height: 4px; border-radius: 2px; flex-shrink: 0;
+    }
+    .user-marker {
+      width: 16px; height: 16px;
+      background: #3b82f6;
+      border: 3px solid white;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(59,130,246,0.6);
+    }
+    .route-popup .route-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+    .route-popup .route-schedule { color: #4b5563; font-size: 13px; }
   </style>
 </head>
 <body class="bg-white">
@@ -64,10 +107,40 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="pt-32 pb-20">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Street Sweeping in Lancaster, PA</h1>
-      <p class="text-xl text-gray-600 mb-8">Your complete guide to Lancaster street sweeping schedules, parking rules, and how to avoid street cleaning tickets.</p>
+  <main class="pt-24 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">Street Sweeping in Lancaster, PA</h1>
+        <p class="text-lg text-gray-600 max-w-3xl">Interactive map of all 20 street sweeping routes in the City of Lancaster. Click any route to see its schedule. Use the location button to find your street.</p>
+      </div>
+
+      <!-- Map -->
+      <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 mb-8">
+        <div id="map"></div>
+      </div>
+
+      <!-- Schedule Summary -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <h3 class="font-bold text-gray-900 mb-2">Monday / Tuesday</h3>
+          <p class="text-sm text-gray-600">Routes 1-4 sweep on the 1st & 3rd or 2nd & 4th Mon/Tue of each month.</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <h3 class="font-bold text-gray-900 mb-2">Wednesday / Thursday</h3>
+          <p class="text-sm text-gray-600">Routes 5-8 sweep on the 1st & 3rd or 2nd & 4th Wed/Thu of each month.</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <h3 class="font-bold text-gray-900 mb-2">Special Routes</h3>
+          <p class="text-sm text-gray-600">Alleys, night routes, business district (daily), development areas, and 5th-week routes on varying schedules.</p>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-gradient-to-r from-sweep-blue to-sweep-blue-dark rounded-xl p-8 text-center text-white">
+        <h2 class="text-2xl font-bold mb-3">Never miss a sweep again</h2>
+        <p class="text-blue-100 mb-5 max-w-lg mx-auto">Beat the Sweep sends you reminders before street cleaning so you can move your car and avoid tickets.</p>
+        <a href="/#download" class="inline-block bg-white text-sweep-blue font-semibold py-3 px-8 rounded-full hover:bg-blue-50 transition-colors">Download the App</a>
+      </div>
     </div>
   </main>
 
@@ -110,7 +183,11 @@
     </div>
   </footer>
 
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
   <script>
+    // Mobile menu
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     mobileMenuBtn.addEventListener('click', () => {
@@ -118,6 +195,173 @@
       const isOpen = !mobileMenu.classList.contains('hidden');
       mobileMenuBtn.setAttribute('aria-expanded', isOpen);
     });
+
+    // ── Route color scheme ──
+    const SCHEDULE_COLORS = {
+      '1st & 3rd Monday/Tuesday':        '#519bff', // sweep-blue
+      '2nd & 4th Monday/Tuesday':         '#3d7ed9', // sweep-blue-dark
+      '1st & 3rd Wednesday/Thursday':     '#f59e0b', // amber
+      '2nd & 4th Wednesday/Thursday':     '#d97706', // amber-dark
+      '5th Monday/Tuesday Mornings':      '#8b5cf6', // violet
+      '5th Monday/Tuesday Evenings':      '#7c3aed', // violet-dark
+      '5th Wednesday/Thursday Mornings':  '#a78bfa', // violet-light
+      'Wednesday/Thursday Nights':        '#10b981', // emerald
+      '1st Friday':                       '#ec4899', // pink
+      '2nd Friday':                       '#db2777', // pink-dark
+      '3rd Friday':                       '#f472b6', // pink-light
+      '4th Friday':                       '#be185d', // pink-darker
+      'Fridays (Twice Per Month)':        '#06b6d4', // cyan
+      'Fridays':                          '#0891b2', // cyan-dark
+      'Monday/Tuesday Nights':            '#6366f1', // indigo
+      'Daily':                            '#ef4444'  // red
+    };
+
+    // Group labels for legend
+    const SCHEDULE_GROUPS = [
+      { label: 'Mon/Tue (1st & 3rd)', key: '1st & 3rd Monday/Tuesday' },
+      { label: 'Mon/Tue (2nd & 4th)', key: '2nd & 4th Monday/Tuesday' },
+      { label: 'Wed/Thu (1st & 3rd)', key: '1st & 3rd Wednesday/Thursday' },
+      { label: 'Wed/Thu (2nd & 4th)', key: '2nd & 4th Wednesday/Thursday' },
+      { label: 'Mon/Tue Nights', key: 'Monday/Tuesday Nights' },
+      { label: 'Wed/Thu Nights (Alleys)', key: 'Wednesday/Thursday Nights' },
+      { label: 'Friday Alleys (1st-4th)', key: '1st Friday' },
+      { label: '5th Week Routes', key: '5th Monday/Tuesday Mornings' },
+      { label: 'Development (Fridays)', key: 'Fridays (Twice Per Month)' },
+      { label: 'Park City (Fridays)', key: 'Fridays' },
+      { label: 'Business District (Daily)', key: 'Daily' }
+    ];
+
+    function getColor(schedule) {
+      return SCHEDULE_COLORS[schedule] || '#6b7280';
+    }
+
+    // ── Initialize map ──
+    var map = L.map('map', {
+      center: [40.0380, -76.3055],
+      zoom: 14,
+      zoomControl: true
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Route data: City of Lancaster',
+      maxZoom: 19
+    }).addTo(map);
+
+    // ── Load routes ──
+    fetch('data/lancaster-sweeping-routes.geojson')
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        var routeLayer = L.geoJSON(data, {
+          style: function(feature) {
+            var schedule = feature.properties.schedule;
+            return {
+              color: getColor(schedule),
+              weight: 4,
+              opacity: 0.85
+            };
+          },
+          onEachFeature: function(feature, layer) {
+            var p = feature.properties;
+            layer.bindPopup(
+              '<div class="route-popup">' +
+                '<div class="route-name">' + p.title + '</div>' +
+                '<div class="route-schedule">' + p.schedule + '</div>' +
+              '</div>'
+            );
+            layer.on('mouseover', function(e) {
+              e.target.setStyle({ weight: 7, opacity: 1 });
+              e.target.bringToFront();
+            });
+            layer.on('mouseout', function(e) {
+              routeLayer.resetStyle(e.target);
+            });
+          }
+        }).addTo(map);
+
+        // Fit map to route bounds
+        map.fitBounds(routeLayer.getBounds(), { padding: [20, 20] });
+      });
+
+    // ── Legend ──
+    var legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function() {
+      var div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = '<div class="legend-title">Sweeping Schedule</div>';
+      SCHEDULE_GROUPS.forEach(function(group) {
+        var color = SCHEDULE_COLORS[group.key] || '#6b7280';
+        div.innerHTML +=
+          '<div class="legend-item">' +
+            '<span class="legend-swatch" style="background:' + color + '"></span>' +
+            '<span>' + group.label + '</span>' +
+          '</div>';
+      });
+      return div;
+    };
+    legend.addTo(map);
+
+    // ── Locate Me button ──
+    var locateControl = L.control({ position: 'topleft' });
+    locateControl.onAdd = function() {
+      var btn = L.DomUtil.create('div', 'locate-btn');
+      btn.innerHTML = '&#9737;';
+      btn.title = 'Find my location';
+      L.DomEvent.disableClickPropagation(btn);
+
+      var userMarker = null;
+      var userCircle = null;
+
+      btn.addEventListener('click', function() {
+        if (!navigator.geolocation) {
+          alert('Geolocation is not supported by your browser.');
+          return;
+        }
+        btn.classList.add('locating');
+        navigator.geolocation.getCurrentPosition(
+          function(pos) {
+            btn.classList.remove('locating');
+            var lat = pos.coords.latitude;
+            var lng = pos.coords.longitude;
+            var accuracy = pos.coords.accuracy;
+
+            if (userMarker) {
+              map.removeLayer(userMarker);
+              map.removeLayer(userCircle);
+            }
+
+            userMarker = L.marker([lat, lng], {
+              icon: L.divIcon({
+                className: 'user-marker',
+                iconSize: [16, 16],
+                iconAnchor: [8, 8]
+              })
+            }).addTo(map).bindPopup('You are here');
+
+            userCircle = L.circle([lat, lng], {
+              radius: accuracy,
+              color: '#3b82f6',
+              fillColor: '#3b82f6',
+              fillOpacity: 0.1,
+              weight: 1
+            }).addTo(map);
+
+            map.setView([lat, lng], 16);
+            userMarker.openPopup();
+          },
+          function(err) {
+            btn.classList.remove('locating');
+            if (err.code === 1) {
+              alert('Location access was denied. Please enable location permissions for this site.');
+            } else {
+              alert('Unable to determine your location. Please try again.');
+            }
+          },
+          { enableHighAccuracy: true, timeout: 10000 }
+        );
+      });
+
+      return btn;
+    };
+    locateControl.addTo(map);
   </script>
 </body>
 </html>

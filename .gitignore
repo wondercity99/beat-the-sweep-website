@@ -4,6 +4,9 @@ node_modules/
 # Build output (regenerated from source)
 dist/output.css
 
+# Source data (raw shapefiles, not for deployment)
+2. DATA/
+
 # OS files
 .DS_Store
 Thumbs.db
