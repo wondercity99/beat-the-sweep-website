@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beat the Sweep - Never Get a Sweeping Ticket Again</title>
-  <meta name="description" content="Beat the Sweep helps you avoid street sweeping tickets with smart reminders. Take a photo of the parking sign and get automatic notifications before street cleaning.">
+  <title>Beat the Sweep - The Lancaster Street Sweeping Guide</title>
+  <meta name="description" content="An unofficial, free guide to street sweeping in Lancaster, PA. Find your route, see when it sweeps, and add reminders to your calendar.">
+  <meta name="keywords" content="Lancaster PA street sweeping, Lancaster street cleaning schedule, Lancaster parking, Lancaster sweep map, avoid street sweeping tickets Lancaster">
+  <link rel="canonical" href="https://beatthesweep.pro/">
   <link rel="icon" type="image/png" href="images/logo-512.png">
   <link rel="apple-touch-icon" href="images/logo-512.png">
-  <meta name="apple-itunes-app" content="app-id=6755791905">
+  <meta property="og:title" content="Beat the Sweep - The Lancaster Street Sweeping Guide">
+  <meta property="og:description" content="A free, unofficial guide to street sweeping in Lancaster, PA. Map, schedules, FAQs, and calendar reminders.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://beatthesweep.pro/">
+  <meta property="og:image" content="https://beatthesweep.pro/images/logo-512.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Beat the Sweep - The Lancaster Street Sweeping Guide">
+  <meta name="twitter:description" content="A free, unofficial guide to street sweeping in Lancaster, PA. Map, schedules, FAQs, and calendar reminders.">
   <link rel="stylesheet" href="dist/output.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,19 +26,6 @@
   </style>
 </head>
 <body class="bg-white">
-  <!-- Android Smart App Banner -->
-  <div id="android-banner" class="hidden fixed top-0 left-0 right-0 z-[60] bg-white border-b border-gray-200 shadow-md px-3 py-2">
-    <div class="flex items-center gap-3">
-      <button id="android-banner-close" class="text-gray-400 hover:text-gray-600 text-xl leading-none" aria-label="Dismiss app banner">&times;</button>
-      <img src="images/logo-512.png" alt="Beat the Sweep" class="w-10 h-10 rounded-xl">
-      <div class="flex-1 min-w-0">
-        <div class="font-semibold text-sm text-gray-900 truncate">Beat the Sweep</div>
-        <div class="text-xs text-gray-500">Free - Google Play</div>
-      </div>
-      <a href="https://play.google.com/store/apps/details?id=pro.beatthesweep.app" class="bg-sweep-blue text-white text-sm font-semibold py-1.5 px-4 rounded-full whitespace-nowrap">View</a>
-    </div>
-  </div>
-
   <!-- Navigation -->
   <nav class="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,10 +37,10 @@
           </a>
         </div>
         <div class="hidden md:flex items-center space-x-8">
-          <a href="#features" class="nav-link">Features</a>
-          <a href="#how-it-works" class="nav-link">How It Works</a>
-          <a href="#contact" class="nav-link">Contact</a>
-          <a href="#download" class="btn-primary text-sm py-2 px-6">Download App</a>
+          <a href="/lancaster" class="nav-link">Lancaster Map</a>
+          <a href="/sweep-faqs" class="nav-link">Sweep FAQs</a>
+          <a href="/game" class="nav-link">Game</a>
+          <a href="/app" class="nav-link">App</a>
         </div>
         <!-- Mobile menu button -->
         <div class="md:hidden">
@@ -59,213 +55,193 @@
     <!-- Mobile menu -->
     <div class="hidden md:hidden bg-white border-t" id="mobile-menu">
       <div class="px-4 py-4 space-y-3">
-        <a href="#features" class="block nav-link">Features</a>
-        <a href="#how-it-works" class="block nav-link">How It Works</a>
-        <a href="#contact" class="block nav-link">Contact</a>
-        <a href="#download" class="block btn-primary text-center text-sm py-2 px-6">Download App</a>
+        <a href="/lancaster" class="block nav-link">Lancaster Map</a>
+        <a href="/sweep-faqs" class="block nav-link">Sweep FAQs</a>
+        <a href="/game" class="block nav-link">Game</a>
+        <a href="/app" class="block nav-link">App</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
-    <!-- Background gradient -->
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-sweep-blue via-sweep-blue-dark to-blue-900"></div>
     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="text-center md:text-left">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-            Never Get a<br>
-            <span class="text-yellow-300">Sweeping Ticket</span><br>
-            Again
-          </h1>
-          <p class="text-xl text-blue-100 mb-8 max-w-lg">
-            Snap a photo of any parking sign. Beat the Sweep reads it and sends you reminders before street sweeping starts.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <a href="https://apps.apple.com/us/app/beat-the-sweep/id6755791905" class="bg-white text-sweep-blue font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center">
-              <span class="flex items-center justify-center gap-2">
-                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                </svg>
-                Download for iOS
-              </span>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=pro.beatthesweep.app" class="bg-sweep-yellow hover:bg-yellow-400 text-black font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center">
-              <span class="flex items-center justify-center gap-2">
-                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z"/>
-                </svg>
-                Get on Android
-              </span>
-            </a>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-blue-100 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+        <span class="w-2 h-2 rounded-full bg-yellow-300"></span>
+        An unofficial Lancaster, PA resource
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+        Never miss a<br>
+        <span class="text-yellow-300">Lancaster street sweep</span>
+      </h1>
+      <p class="text-lg md:text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+        A free, unofficial guide to every street sweeping route in Lancaster, PA. Find your route, see your next sweep, and add it to your calendar &mdash; no app, no signup.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/lancaster" class="bg-white text-sweep-blue font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+          Open the map
+        </a>
+        <a href="/sweep-faqs" class="bg-transparent border-2 border-white/40 text-white font-semibold py-4 px-8 rounded-full hover:bg-white/10 transition-colors">
+          Read the FAQs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Asymmetric content blocks -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- 01 — The Map (large, illustrated) -->
+      <a href="/lancaster" class="group block mb-24 md:mb-32">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div class="lg:col-span-6 order-2 lg:order-1">
+            <div class="text-xs font-semibold text-sweep-blue tracking-[0.2em] uppercase mb-5">01 &mdash; The Map</div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-5 leading-[1.1] group-hover:text-sweep-blue transition-colors">
+              All twenty Lancaster routes, color-coded by schedule.
+            </h2>
+            <p class="text-lg text-gray-600 mb-7 max-w-xl leading-relaxed">Click any route to see its next sweep date, then drop a recurring reminder into Apple, Google, or Outlook calendar in one click.</p>
+            <span class="inline-flex items-center gap-2 text-sweep-blue font-semibold border-b-2 border-sweep-blue pb-1 group-hover:gap-3 transition-all">
+              Open the map
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </span>
           </div>
-        </div>
-        <div class="relative">
-          <!-- Phone mockup placeholder -->
-          <div class="relative mx-auto w-64 md:w-80">
-            <div class="bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
-              <div class="bg-black rounded-[2.5rem] overflow-hidden aspect-[828/1792]">
-                <img src="images/IMG_5045.PNG" alt="Beat the Sweep app screenshot showing parking sign scan and reminder" class="w-full h-full object-cover">
+          <div class="lg:col-span-6 order-1 lg:order-2">
+            <div class="aspect-[4/3] rounded-xl bg-gradient-to-br from-blue-50 via-white to-blue-50 border border-blue-100 p-4 md:p-6 shadow-md group-hover:shadow-xl transition-shadow relative overflow-hidden">
+              <svg viewBox="0 0 400 300" class="w-full h-full" aria-hidden="true">
+                <!-- Subtle street grid -->
+                <g stroke="#dbeafe" stroke-width="1">
+                  <line x1="0" y1="60" x2="400" y2="60"/>
+                  <line x1="0" y1="110" x2="400" y2="110"/>
+                  <line x1="0" y1="160" x2="400" y2="160"/>
+                  <line x1="0" y1="210" x2="400" y2="210"/>
+                  <line x1="0" y1="260" x2="400" y2="260"/>
+                  <line x1="60" y1="0" x2="60" y2="300"/>
+                  <line x1="130" y1="0" x2="130" y2="300"/>
+                  <line x1="200" y1="0" x2="200" y2="300"/>
+                  <line x1="270" y1="0" x2="270" y2="300"/>
+                  <line x1="340" y1="0" x2="340" y2="300"/>
+                </g>
+                <!-- Route lines (each color = a different schedule) -->
+                <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M30 60 L 200 60 L 200 110 L 370 110" stroke="#519bff"/>
+                  <path d="M30 160 L 130 160 L 130 210 L 370 210" stroke="#3d7ed9"/>
+                  <path d="M130 30 L 130 110 L 270 110 L 270 260" stroke="#ffb500"/>
+                  <path d="M60 270 L 60 160 L 200 160 L 200 270 L 340 270" stroke="#ffdd00"/>
+                </g>
+                <!-- Penn Square center marker -->
+                <g transform="translate(200, 160)">
+                  <circle r="22" fill="#3d7ed9" opacity="0.12"/>
+                  <circle r="6" fill="#3d7ed9"/>
+                  <circle r="6" fill="none" stroke="white" stroke-width="2"/>
+                </g>
+                <text x="215" y="156" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#3d7ed9">Penn Sq.</text>
+              </svg>
+              <!-- Legend -->
+              <div class="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-auto bg-white/90 backdrop-blur-sm rounded-md px-3 py-2 text-[10px] md:text-xs font-medium text-gray-700 shadow-sm flex flex-wrap gap-x-3 gap-y-1">
+                <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sweep-blue rounded-full"></span>Mon/Tue</span>
+                <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sweep-orange rounded-full"></span>Wed/Thu</span>
+                <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sweep-yellow rounded-full"></span>Fridays</span>
               </div>
             </div>
           </div>
         </div>
+      </a>
+
+      <!-- 02 — The Backstory (pull quote, editorial) -->
+      <div class="mb-24 md:mb-32">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div class="lg:col-span-5">
+            <div class="text-xs font-semibold text-gray-500 tracking-[0.2em] uppercase mb-5">02 &mdash; The Backstory</div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-5 leading-[1.1]">Why do we even sweep streets?</h2>
+            <p class="text-lg text-gray-600 mb-7 leading-relaxed">A short history of street sweeping, why your city is mandated to do it, and whether the tickets are really a money grab.</p>
+            <a href="/sweep-faqs" class="inline-flex items-center gap-2 text-gray-900 font-semibold border-b-2 border-gray-900 pb-1 hover:gap-3 transition-all">
+              Read the FAQs
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
+          </div>
+          <div class="lg:col-span-7">
+            <blockquote class="border-l-4 border-sweep-orange pl-6 md:pl-10 py-3">
+              <p class="text-2xl md:text-3xl text-gray-800 leading-snug mb-5" style="font-family: Georgia, 'Times New Roman', serif; font-style: italic;">&ldquo;The first organized public street sweeping was started by Benjamin Franklin. He proposed the idea in 1762, and it took about 7 years to get started.&rdquo;</p>
+              <footer class="text-sm text-gray-500">From the FAQs &mdash; <span class="italic">When did street sweeping start, and who started it?</span></footer>
+            </blockquote>
+          </div>
+        </div>
       </div>
+
+      <!-- 03 — The Game (pixel-arcade frame) -->
+      <a href="/game" class="group block mb-24 md:mb-32">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div class="lg:col-span-5">
+            <div class="aspect-[4/5] max-w-sm mx-auto rounded-md bg-gray-900 p-5 shadow-xl group-hover:shadow-2xl transition-all border-[6px] border-gray-900 relative overflow-hidden">
+              <!-- CRT scanlines -->
+              <div class="absolute inset-0 opacity-25 pointer-events-none" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px);"></div>
+              <!-- Pixel grid backing -->
+              <div class="absolute inset-0 opacity-[0.07]" style="background-image: linear-gradient(#519bff 1px, transparent 1px), linear-gradient(90deg, #519bff 1px, transparent 1px); background-size: 8px 8px;"></div>
+              <div class="relative h-full flex flex-col items-center justify-between text-yellow-300" style="font-family: 'Courier New', ui-monospace, monospace;">
+                <div class="text-[10px] tracking-[0.4em] opacity-70 mt-1">&mdash; ARCADE &mdash;</div>
+                <svg width="120" height="120" viewBox="0 0 16 16" style="image-rendering: pixelated;" shape-rendering="crispEdges" aria-hidden="true">
+                  <rect x="3" y="4" width="10" height="2" fill="#ffdd00"/>
+                  <rect x="2" y="6" width="12" height="6" fill="#ffdd00"/>
+                  <rect x="4" y="5" width="3" height="1" fill="#1f2937"/>
+                  <rect x="9" y="5" width="3" height="1" fill="#1f2937"/>
+                  <rect x="3" y="12" width="2" height="2" fill="#1f2937"/>
+                  <rect x="11" y="12" width="2" height="2" fill="#1f2937"/>
+                  <rect x="7" y="9" width="2" height="1" fill="#fbbf24"/>
+                </svg>
+                <div class="text-center mb-1">
+                  <div class="text-xl md:text-2xl font-bold tracking-[0.15em] mb-1">BEAT THE SWEEP</div>
+                  <div class="text-[10px] opacity-70 tracking-widest animate-pulse">PRESS START</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-7">
+            <div class="text-xs font-semibold text-sweep-orange-dark tracking-[0.2em] uppercase mb-5">03 &mdash; A Diversion</div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-5 leading-[1.1] group-hover:text-sweep-orange-dark transition-colors">A free retro game in your browser.</h2>
+            <p class="text-lg text-gray-600 mb-7 max-w-xl leading-relaxed">Dodge sweepers. Avoid traffic. Don't get a ticket. Plays on desktop and mobile, no signup, no nothing.</p>
+            <span class="inline-flex items-center gap-2 text-sweep-orange-dark font-semibold border-b-2 border-sweep-orange-dark pb-1 group-hover:gap-3 transition-all">
+              Play now
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 04 — The App (small, demoted aside) -->
+      <a href="/app" class="block max-w-3xl mx-auto bg-sweep-yellow/15 hover:bg-sweep-yellow/25 border border-sweep-yellow/40 rounded-xl px-6 py-5 transition-colors">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex-1">
+            <div class="text-[10px] font-semibold text-sweep-orange-dark tracking-[0.2em] uppercase mb-1">04 &mdash; Outside Lancaster?</div>
+            <p class="text-gray-800 font-medium leading-snug">Snap a parking sign and the Beat the Sweep app reads the schedule for you. iOS and Android.</p>
+          </div>
+          <span class="flex-shrink-0 text-sweep-orange-dark font-semibold whitespace-nowrap">Get the app &rarr;</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section id="features" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="section-heading">Smart Features That Save You Money</h2>
-        <p class="section-subheading">No more circling back or getting tickets. Beat the Sweep does the remembering for you.</p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Feature 1 -->
-        <div class="card text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-            <svg class="w-8 h-8 text-sweep-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Smart Sign Reading</h3>
-          <p class="text-gray-600">Just snap a photo of the parking sign. Our AI instantly reads and understands the street sweeping schedule.</p>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="card text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-            <svg class="w-8 h-8 text-sweep-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Timely Reminders</h3>
-          <p class="text-gray-600">Get notified 15 minutes, 30 minutes, or hours before sweeping starts. You choose when to be reminded.</p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="card text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-            <svg class="w-8 h-8 text-sweep-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Recurring Schedules</h3>
-          <p class="text-gray-600">Save your regular parking spots. Get automatic weekly reminders without scanning again.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="section-heading">How It Works</h2>
-        <p class="section-subheading">Three simple steps to parking peace of mind.</p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Step 1 -->
-        <div class="text-center">
-          <img src="images/step-1-scan.png" alt="Scan a parking sign" class="w-40 h-40 object-contain mx-auto mb-6">
-          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg">1</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Snap the Sign</h3>
-          <p class="text-gray-600">Open the app and take a photo of the street sweeping sign where you parked.</p>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="text-center">
-          <img src="images/step-2-confirm.png" alt="Confirm parking details" class="w-40 h-40 object-contain mx-auto mb-6">
-          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg">2</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Confirm Details</h3>
-          <p class="text-gray-600">Review the detected schedule and choose when you want to be reminded.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="text-center">
-          <img src="images/step-3-remind.png" alt="Get a reminder notification" class="w-40 h-40 object-contain mx-auto mb-6">
-          <div class="w-20 h-20 bg-sweep-blue rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg">3</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Get Reminded</h3>
-          <p class="text-gray-600">Receive a notification before sweeping starts. Move your car and avoid the ticket!</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="py-16 bg-sweep-blue">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-        <div>
-          <div class="text-4xl md:text-5xl font-bold mb-2">$25-75+</div>
-          <div class="text-blue-200">Typical Ticket Cost</div>
-        </div>
-        <div>
-          <div class="text-4xl md:text-5xl font-bold mb-2">Millions</div>
-          <div class="text-blue-200">Tickets Issued Each Year</div>
-        </div>
-        <div>
-          <div class="text-4xl md:text-5xl font-bold mb-2">99%</div>
-          <div class="text-blue-200">Accuracy Rate</div>
-        </div>
-        <div>
-          <div class="text-2xl md:text-4xl font-bold mb-2 whitespace-nowrap">Free Download</div>
-          <div class="text-blue-200">$4.99 for Unlimited Reminders</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Download Section -->
-  <section id="download" class="py-20 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <img src="images/logo-512-clear.png" alt="Beat the Sweep logo" class="w-[300px] h-[300px] mx-auto mb-6">
-      <h2 class="section-heading">Ready to Beat the Sweep?</h2>
-      <p class="section-subheading mb-10">Download now and start saving money on parking tickets today.</p>
-
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="https://apps.apple.com/us/app/beat-the-sweep/id6755791905" class="inline-flex items-center justify-center gap-3 bg-black text-white py-4 px-8 rounded-xl hover:bg-gray-800 transition-colors">
-          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-          </svg>
-          <div class="text-left">
-            <div class="text-xs text-gray-400">Download on the</div>
-            <div class="text-lg font-semibold">App Store</div>
-          </div>
-        </a>
-
-        <a href="https://play.google.com/store/apps/details?id=pro.beatthesweep.app" class="inline-flex items-center justify-center gap-3 bg-black text-white py-4 px-8 rounded-xl hover:bg-gray-800 transition-colors">
-          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z"/>
-          </svg>
-          <div class="text-left">
-            <div class="text-xs text-gray-400">Get it on</div>
-            <div class="text-lg font-semibold">Google Play</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-white">
-    <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="bg-gray-50 rounded-2xl shadow-lg p-8 md:p-12">
-        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <svg class="w-8 h-8 text-sweep-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-          </svg>
-        </div>
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Get in Touch</h2>
-        <p class="text-gray-600 mb-4">For support or general inquiries, email us at</p>
-        <a href="mailto:beatthesweep@proton.me" class="text-xl text-sweep-blue hover:underline">beatthesweep@proton.me</a>
+  <!-- Why this exists -->
+  <section class="py-20 md:py-24 bg-gray-50 border-t border-gray-100">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8 leading-[1.1]">Why this exists</h2>
+      <div class="text-gray-700 leading-relaxed space-y-5 text-base md:text-lg">
+        <p>
+          My name is Phil Thompson. I moved to Lancaster in 2024, and within a few months I'd picked up two street sweeping tickets &mdash; or &ldquo;street cleaning&rdquo; tickets, as the city calls them. That sent me down a rabbit hole: why does Lancaster sweep some streets weekly, and others daily? What's the origin of street sweeping in general? It turns out tens of thousands of U.S. cities run sweeping programs of one kind or another, and I wasn't the only one with questions.
+        </p>
+        <p>
+          Beat the Sweep is what came out of that probing. It's an unofficial, free Lancaster guide &mdash; a map, calendar reminders, and an FAQ that tries to answer the "why's".
+        </p>
+        <p class="text-sm md:text-base text-gray-500 pt-4 border-t border-gray-200">
+          The official source for Lancaster street cleaning is the
+          <a href="https://www.cityoflancasterpa.gov/services/parking-street-cleaning-snow-removal/" class="text-sweep-blue hover:text-sweep-blue-dark underline" target="_blank" rel="noopener noreferrer">City of Lancaster</a>.
+          Schedules and holiday observances can change &mdash; always verify there before relying on this site for parking decisions. Spot a mistake?
+          <a href="mailto:beatthesweep@proton.me" class="text-sweep-blue hover:text-sweep-blue-dark underline">Email me</a>.
+        </p>
       </div>
     </div>
   </section>
@@ -279,26 +255,26 @@
             <img src="images/logo-512.png" alt="Beat the Sweep logo" class="w-10 h-10 rounded-xl">
             <span class="text-xl font-bold text-white">Beat the Sweep</span>
           </div>
-          <p class="text-sm max-w-md">The smart way to avoid street sweeping tickets. Snap, save, and never worry about parking again.</p>
+          <p class="text-sm max-w-md">An unofficial guide to street sweeping in Lancaster, PA &mdash; plus a mobile app for sign-based parking reminders.</p>
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4">Links</h4>
+          <h4 class="text-white font-semibold mb-4">Explore</h4>
           <ul class="space-y-2 text-sm">
-            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
-            <li><a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
-            <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+            <li><a href="/lancaster" class="hover:text-white transition-colors">Lancaster Map</a></li>
             <li><a href="/sweep-faqs" class="hover:text-white transition-colors">Sweep FAQs</a></li>
-            <li><a href="/game" class="hover:text-white transition-colors">Play Beat the Sweep: The Game!</a></li>
-            <li><a href="/lancaster" class="hover:text-white transition-colors">Street Sweeping in Lancaster</a></li>
+            <li><a href="/game" class="hover:text-white transition-colors">Play the Game</a></li>
+            <li><a href="/app" class="hover:text-white transition-colors">Get the App</a></li>
+            <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-white font-semibold mb-4">Legal</h4>
           <ul class="space-y-2 text-sm">
-            <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
-            <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="/terms" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="/delete-account" class="hover:text-white transition-colors">Delete Account</a></li>
           </ul>
         </div>
       </div>
@@ -318,35 +294,6 @@
       mobileMenu.classList.toggle('hidden');
       const isOpen = !mobileMenu.classList.contains('hidden');
       mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-    });
-
-    // Android smart app banner
-    (function() {
-      var ua = navigator.userAgent || '';
-      var isAndroid = /Android/i.test(ua);
-      var dismissed = sessionStorage.getItem('android-banner-dismissed');
-      if (isAndroid && !dismissed) {
-        var banner = document.getElementById('android-banner');
-        banner.classList.remove('hidden');
-        document.body.style.paddingTop = banner.offsetHeight + 'px';
-        document.getElementById('android-banner-close').addEventListener('click', function() {
-          banner.classList.add('hidden');
-          document.body.style.paddingTop = '0';
-          sessionStorage.setItem('android-banner-dismissed', '1');
-        });
-      }
-    })();
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-          mobileMenu.classList.add('hidden');
-        }
-      });
     });
   </script>
 </body>
