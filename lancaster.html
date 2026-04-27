@@ -72,6 +72,9 @@
     }
     .route-popup .route-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
     .route-popup .route-schedule { color: #4b5563; font-size: 13px; }
+    .route-popup .route-next { margin-top: 6px; padding-top: 6px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #1f2937; }
+    .route-popup .route-next-label { font-weight: 600; display: block; margin-bottom: 2px; }
+    .route-popup .route-next-date { display: block; color: #4b5563; }
   </style>
 </head>
 <body class="bg-white">
@@ -243,6 +246,79 @@
       return SCHEDULE_COLORS[schedule] || '#6b7280';
     }
 
+    // ── Next sweep date computation ──
+    function getNextSweeps(schedule) {
+      if (schedule === 'Daily') return { type: 'daily' };
+
+      var days = [];
+      if (schedule.indexOf('Monday') !== -1) days.push(1);
+      if (schedule.indexOf('Tuesday') !== -1) days.push(2);
+      if (schedule.indexOf('Wednesday') !== -1) days.push(3);
+      if (schedule.indexOf('Thursday') !== -1) days.push(4);
+      if (schedule.indexOf('Friday') !== -1) days.push(5);
+      if (days.length === 0) return { type: 'unknown' };
+
+      // Nth-occurrence-of-weekday-in-month constraint (e.g. "1st Friday" = the 1st Friday of the month)
+      var weekConstraint = null;
+      if (schedule.indexOf('1st & 3rd') !== -1) weekConstraint = [1, 3];
+      else if (schedule.indexOf('2nd & 4th') !== -1) weekConstraint = [2, 4];
+      else if (schedule.indexOf('Twice Per Month') !== -1) weekConstraint = [2, 4];
+      else if (/^1st /.test(schedule)) weekConstraint = [1];
+      else if (/^2nd /.test(schedule)) weekConstraint = [2];
+      else if (/^3rd /.test(schedule)) weekConstraint = [3];
+      else if (/^4th /.test(schedule)) weekConstraint = [4];
+      else if (/^5th /.test(schedule)) weekConstraint = [5];
+
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      var dates = [];
+
+      for (var i = 0; i < 120 && dates.length < days.length; i++) {
+        var d = new Date(today);
+        d.setDate(d.getDate() + i);
+        if (days.indexOf(d.getDay()) === -1) continue;
+        if (weekConstraint) {
+          var nthOccurrence = Math.ceil(d.getDate() / 7);
+          if (weekConstraint.indexOf(nthOccurrence) === -1) continue;
+        }
+        dates.push(d);
+      }
+
+      return { type: 'dates', dates: dates };
+    }
+
+    function formatSweepDate(d) {
+      var DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      var MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var day = d.getDate();
+      var n = day % 100;
+      var suffix = (n >= 11 && n <= 13) ? 'th'
+        : (day % 10 === 1) ? 'st'
+        : (day % 10 === 2) ? 'nd'
+        : (day % 10 === 3) ? 'rd' : 'th';
+
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      var diffDays = Math.round((d - today) / 86400000);
+      var relative = (diffDays === 0) ? ' (today)' : (diffDays === 1) ? ' (tomorrow)' : '';
+
+      return DAY_SHORT[d.getDay()] + ', ' + MONTH[d.getMonth()] + ' ' + day + suffix + relative;
+    }
+
+    function buildNextSweepHtml(schedule) {
+      var next = getNextSweeps(schedule);
+      if (next.type === 'daily') {
+        return '<div class="route-next"><span class="route-next-label">Next sweep:</span><span class="route-next-date">Today (sweeps every day)</span></div>';
+      }
+      if (next.type === 'dates' && next.dates.length > 0) {
+        var rows = next.dates.map(function(d) {
+          return '<span class="route-next-date">' + formatSweepDate(d) + '</span>';
+        }).join('');
+        return '<div class="route-next"><span class="route-next-label">Next sweep:</span>' + rows + '</div>';
+      }
+      return '';
+    }
+
     // ── Initialize map ──
     var map = L.map('map', {
       center: [40.0380, -76.3055],
@@ -274,6 +350,7 @@
               '<div class="route-popup">' +
                 '<div class="route-name">' + p.title + '</div>' +
                 '<div class="route-schedule">' + p.schedule + '</div>' +
+                buildNextSweepHtml(p.schedule) +
               '</div>'
             );
             layer.on('mouseover', function(e) {
