@@ -26,27 +26,119 @@
   <style>
     body { font-family: 'Inter', sans-serif; }
     #map { height: 70vh; min-height: 500px; width: 100%; border-radius: 0.75rem; }
-    .locate-btn {
-      background: #519bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      line-height: 1;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .locate-btn:hover { background: #3d7ed9; }
-    .locate-btn.locating { animation: pulse-locate 1s infinite; }
     @keyframes pulse-locate {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
+    }
+
+    /* ── Address search card ── */
+    .search-card {
+      background: linear-gradient(135deg, #519bff 0%, #3d7ed9 100%);
+      border-radius: 0.75rem;
+      padding: 1.1rem 1.25rem 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 14px rgba(81, 155, 255, 0.25);
+    }
+    .search-card-label {
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.65rem;
+      display: block;
+      letter-spacing: 0.01em;
+    }
+    .search-card-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+    .search-input-wrap {
+      position: relative;
+      flex: 1 1 280px;
+      min-width: 220px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.85rem 0.9rem 0.85rem 2.5rem;
+      border: none;
+      border-radius: 0.55rem;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      background: white;
+      color: #1f2937;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      outline: none;
+    }
+    .search-input:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.45); }
+    .search-input::placeholder { color: #9ca3af; }
+    .search-input-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+      pointer-events: none;
+    }
+    .search-suggestions {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 0.55rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      z-index: 1000;
+      max-height: 280px;
+      overflow-y: auto;
+      display: none;
+    }
+    .search-suggestions.open { display: block; }
+    .search-suggestion {
+      padding: 0.65rem 0.9rem;
+      cursor: pointer;
+      font-size: 0.92rem;
+      color: #1f2937;
+      border-bottom: 1px solid #f3f4f6;
+      line-height: 1.3;
+    }
+    .search-suggestion:last-child { border-bottom: none; }
+    .search-suggestion:hover, .search-suggestion.active { background: #eff6ff; }
+    .search-suggestion-empty {
+      padding: 0.65rem 0.9rem;
+      color: #6b7280;
+      font-size: 0.88rem;
+    }
+    .search-locate-btn {
+      background: rgba(255,255,255,0.96);
+      color: #2563eb;
+      border: none;
+      border-radius: 0.55rem;
+      padding: 0 1rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .search-locate-btn:hover { background: white; }
+    .search-locate-btn.locating { animation: pulse-locate 1s infinite; }
+    .search-feedback {
+      margin-top: 0.7rem;
+      color: white;
+      font-size: 0.85rem;
+      background: rgba(0,0,0,0.18);
+      padding: 0.45rem 0.7rem;
+      border-radius: 0.4rem;
+      display: none;
+    }
+    .search-feedback.show { display: block; }
+    @media (max-width: 480px) {
+      .search-locate-btn { padding: 0.7rem 1rem; width: 100%; justify-content: center; }
     }
     .legend {
       background: white;
@@ -80,6 +172,28 @@
     .route-popup .route-cal-btn { display: block; padding: 6px 10px; background: #519bff; color: #fff !important; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none; text-align: center; cursor: pointer; }
     .route-popup .route-cal-btn:hover { background: #3d7ed9; }
     .route-popup .route-cal-note { font-size: 11px; color: #6b7280; margin-top: 2px; line-height: 1.35; }
+    .route-popup .route-next-row { padding: 2px 0; line-height: 1.4; }
+    .route-popup .route-next-row.suspended .route-next-date {
+      color: #92400e;
+      text-decoration: line-through;
+      text-decoration-color: #d97706;
+    }
+    .route-popup .route-next-warn {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+    .route-popup .route-next-confirmed {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #047857;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body class="bg-white">
@@ -123,9 +237,43 @@
   <!-- Main Content -->
   <main class="pt-24 pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8">
+      <div class="mb-6">
         <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">Street Sweeping in Lancaster, PA</h1>
-        <p class="text-lg text-gray-600 max-w-3xl">Interactive map of all 20 street sweeping routes in the City of Lancaster. Click any route to see its schedule. Use the location button to find your street.</p>
+        <p class="text-lg text-gray-600 max-w-3xl">Interactive map of all 20 street sweeping routes in the City of Lancaster. Enter your address below to find your sweep route, or click any line on the map for its schedule.</p>
+      </div>
+
+      <!-- Address search -->
+      <div class="search-card">
+        <label class="search-card-label" for="address-search">Find your street</label>
+        <div class="search-card-row">
+          <div class="search-input-wrap">
+            <svg class="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input
+              type="text"
+              id="address-search"
+              class="search-input"
+              placeholder="Enter your Lancaster address"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search Lancaster address"
+            />
+            <div class="search-suggestions" id="search-suggestions" role="listbox"></div>
+          </div>
+          <button type="button" class="search-locate-btn" id="locate-btn" aria-label="Use my current location">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <line x1="12" y1="2" x2="12" y2="6"/>
+              <line x1="12" y1="18" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="6" y2="12"/>
+              <line x1="18" y1="12" x2="22" y2="12"/>
+            </svg>
+            <span>Use my location</span>
+          </button>
+        </div>
+        <div class="search-feedback" id="search-feedback" role="status" aria-live="polite"></div>
       </div>
 
       <!-- Map -->
@@ -249,8 +397,103 @@
       return SCHEDULE_COLORS[schedule] || '#6b7280';
     }
 
+    // ── Suspended (holiday) date computation ──
+    // City of Lancaster suspends sweeping on observed holidays. We compute these
+    // each calendar year and flag any next-sweep dates that overlap.
+    var HOLIDAY_CACHE = {};
+    function getHolidays(year) {
+      if (HOLIDAY_CACHE[year]) return HOLIDAY_CACHE[year];
+      var map = {};
+
+      function ymdKey(d) {
+        return d.getFullYear() + '-' +
+          (d.getMonth() + 1 < 10 ? '0' : '') + (d.getMonth() + 1) + '-' +
+          (d.getDate() < 10 ? '0' : '') + d.getDate();
+      }
+      function add(d, name) { map[ymdKey(d)] = name; }
+      function nthWeekday(yr, mo, n, wd) {
+        var d = new Date(yr, mo, 1);
+        var offset = (wd - d.getDay() + 7) % 7;
+        d.setDate(1 + offset + (n - 1) * 7);
+        return d;
+      }
+      function lastWeekday(yr, mo, wd) {
+        var d = new Date(yr, mo + 1, 0); // last day of month
+        var offset = (d.getDay() - wd + 7) % 7;
+        d.setDate(d.getDate() - offset);
+        return d;
+      }
+      // Computus (Anonymous Gregorian algorithm) → Easter Sunday
+      function easter(yr) {
+        var a = yr % 19;
+        var b = Math.floor(yr / 100);
+        var c = yr % 100;
+        var d = Math.floor(b / 4);
+        var e = b % 4;
+        var f = Math.floor((b + 8) / 25);
+        var g = Math.floor((b - f + 1) / 3);
+        var h = (19 * a + b - d - g + 15) % 30;
+        var i = Math.floor(c / 4);
+        var k = c % 4;
+        var l = (32 + 2 * e + 2 * i - h - k) % 7;
+        var m = Math.floor((a + 11 * h + 22 * l) / 451);
+        var month = Math.floor((h + l - 7 * m + 114) / 31);
+        var day = ((h + l - 7 * m + 114) % 31) + 1;
+        return new Date(yr, month - 1, day);
+      }
+      function addFixed(mo, day, name) {
+        var d = new Date(year, mo, day);
+        add(d, name);
+        // Saturday → observed Friday; Sunday → observed Monday
+        if (d.getDay() === 6) {
+          var fri = new Date(d); fri.setDate(fri.getDate() - 1);
+          add(fri, name + ' (observed)');
+        } else if (d.getDay() === 0) {
+          var mon = new Date(d); mon.setDate(mon.getDate() + 1);
+          add(mon, name + ' (observed)');
+        }
+      }
+
+      // Fixed-date holidays
+      addFixed(0, 1, "New Year's Day");
+      addFixed(5, 19, 'Juneteenth');
+      addFixed(6, 4, 'Independence Day');
+      addFixed(11, 25, 'Christmas Day');
+      addFixed(11, 26, 'Day after Christmas');
+
+      // Floating
+      add(nthWeekday(year, 0, 3, 1), 'Martin Luther King Jr. Day');
+      add(nthWeekday(year, 1, 3, 1), "Presidents' Day");
+      add(lastWeekday(year, 4, 1), 'Memorial Day');
+      add(nthWeekday(year, 8, 1, 1), 'Labor Day');
+
+      var thx = nthWeekday(year, 10, 4, 4);
+      add(thx, 'Thanksgiving');
+      var fridayAfter = new Date(thx); fridayAfter.setDate(fridayAfter.getDate() + 1);
+      add(fridayAfter, 'Day after Thanksgiving');
+
+      var goodFri = easter(year); goodFri.setDate(goodFri.getDate() - 2);
+      add(goodFri, 'Good Friday');
+
+      // Election Day = 1st Tuesday after the 1st Monday in November
+      var firstMonNov = nthWeekday(year, 10, 1, 1);
+      var electionDay = new Date(firstMonNov); electionDay.setDate(electionDay.getDate() + 1);
+      add(electionDay, 'Election Day');
+
+      HOLIDAY_CACHE[year] = map;
+      return map;
+    }
+
+    function getHolidayFor(date) {
+      var holidays = getHolidays(date.getFullYear());
+      var key = date.getFullYear() + '-' +
+        (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
+        (date.getDate() < 10 ? '0' : '') + date.getDate();
+      return holidays[key] || null;
+    }
+
     // ── Next sweep date computation ──
-    function getNextSweeps(schedule) {
+    function getNextSweeps(schedule, count) {
       if (schedule === 'Daily') return { type: 'daily' };
 
       var days = [];
@@ -272,11 +515,12 @@
       else if (/^4th /.test(schedule)) weekConstraint = [4];
       else if (/^5th /.test(schedule)) weekConstraint = [5];
 
+      var targetCount = count || days.length;
       var today = new Date();
       today.setHours(0, 0, 0, 0);
       var dates = [];
 
-      for (var i = 0; i < 120 && dates.length < days.length; i++) {
+      for (var i = 0; i < 365 && dates.length < targetCount; i++) {
         var d = new Date(today);
         d.setDate(d.getDate() + i);
         if (days.indexOf(d.getDay()) === -1) continue;
@@ -287,7 +531,7 @@
         dates.push(d);
       }
 
-      return { type: 'dates', dates: dates };
+      return { type: 'dates', dates: dates, weekdayCount: days.length };
     }
 
     function formatSweepDate(d) {
@@ -308,18 +552,48 @@
       return DAY_SHORT[d.getDay()] + ', ' + MONTH[d.getMonth()] + ' ' + day + suffix + relative;
     }
 
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function buildNextSweepHtml(schedule) {
-      var next = getNextSweeps(schedule);
+      var next = getNextSweeps(schedule, 12);
       if (next.type === 'daily') {
         return '<div class="route-next"><span class="route-next-label">Next sweep:</span><span class="route-next-date">Today (sweeps every day)</span></div>';
       }
-      if (next.type === 'dates' && next.dates.length > 0) {
-        var rows = next.dates.map(function(d) {
-          return '<span class="route-next-date">' + formatSweepDate(d) + '</span>';
-        }).join('');
-        return '<div class="route-next"><span class="route-next-label">Next sweep:</span>' + rows + '</div>';
+      if (next.type !== 'dates' || next.dates.length === 0) return '';
+
+      var defaultCount = next.weekdayCount || 2;
+      var defaultDates = next.dates.slice(0, defaultCount);
+
+      var rows = defaultDates.map(function(d) {
+        var hol = getHolidayFor(d);
+        var dateText = formatSweepDate(d);
+        if (hol) {
+          return '<div class="route-next-row suspended">' +
+            '<span class="route-next-date">' + dateText + '</span>' +
+            '<span class="route-next-warn">' + escapeHtml(hol) + ' &mdash; likely suspended</span>' +
+          '</div>';
+        }
+        return '<div class="route-next-row"><span class="route-next-date">' + dateText + '</span></div>';
+      }).join('');
+
+      // If every date in the default window is suspended, surface the next confirmed sweep
+      var allSuspended = defaultDates.every(function(d) { return !!getHolidayFor(d); });
+      var confirmedHtml = '';
+      if (allSuspended && defaultDates.length > 0) {
+        var beyond = next.dates.slice(defaultCount).find(function(d) { return !getHolidayFor(d); });
+        if (beyond) {
+          confirmedHtml = '<div class="route-next-confirmed">Next confirmed sweep: ' + formatSweepDate(beyond) + '</div>';
+        }
       }
-      return '';
+
+      return '<div class="route-next"><span class="route-next-label">Next sweep:</span>' + rows + confirmedHtml + '</div>';
     }
 
     // ── Calendar export (.ics + Google Calendar) ──
@@ -386,7 +660,8 @@
       var description = 'Street sweeping for ' + p.title + '.\n'
         + 'Schedule: ' + p.schedule + '\n'
         + 'Time approximate — verify with City of Lancaster for exact hours.\n'
-        + 'Reflects schedule as of ' + today + '. Holiday observances not included.';
+        + 'Sweeping is typically suspended on city holidays (New Year, MLK Day, Presidents Day, Good Friday, Memorial Day, Juneteenth, July 4, Labor Day, Election Day, Thanksgiving + day after, Christmas + Dec 26). These reminders do not auto-skip those dates.\n'
+        + 'Reflects schedule as of ' + today + '.';
       var uid = 'lancaster-route-' + p.route + '-' + Date.now() + '@beatthesweep';
 
       var lines = [
@@ -530,69 +805,194 @@
     };
     legend.addTo(map);
 
-    // ── Locate Me button ──
-    var locateControl = L.control({ position: 'topleft' });
-    locateControl.onAdd = function() {
-      var btn = L.DomUtil.create('div', 'locate-btn');
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg><span>Find My Location</span>';
-      btn.title = 'Find my location';
-      L.DomEvent.disableClickPropagation(btn);
+    // ── User marker + search card wiring ──
+    var userMarker = null;
+    var userCircle = null;
+    var locateBtn = document.getElementById('locate-btn');
+    var searchInput = document.getElementById('address-search');
+    var suggestionsEl = document.getElementById('search-suggestions');
+    var feedbackEl = document.getElementById('search-feedback');
 
-      var userMarker = null;
-      var userCircle = null;
+    function showFeedback(msg) {
+      feedbackEl.textContent = msg;
+      feedbackEl.classList.add('show');
+    }
+    function clearFeedback() {
+      feedbackEl.textContent = '';
+      feedbackEl.classList.remove('show');
+    }
 
-      btn.addEventListener('click', function() {
-        if (!navigator.geolocation) {
-          alert('Geolocation is not supported by your browser.');
-          return;
+    function setUserMarker(lat, lng, opts) {
+      opts = opts || {};
+      if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
+      if (userCircle) { map.removeLayer(userCircle); userCircle = null; }
+
+      userMarker = L.marker([lat, lng], {
+        icon: L.divIcon({
+          className: 'user-marker',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        })
+      }).addTo(map).bindPopup(opts.label || 'Your location');
+
+      if (opts.accuracy) {
+        userCircle = L.circle([lat, lng], {
+          radius: opts.accuracy,
+          color: '#3b82f6',
+          fillColor: '#3b82f6',
+          fillOpacity: 0.1,
+          weight: 1
+        }).addTo(map);
+      }
+
+      map.setView([lat, lng], opts.zoom || 17);
+      userMarker.openPopup();
+    }
+
+    // ── "Use my location" ──
+    locateBtn.addEventListener('click', function() {
+      if (!navigator.geolocation) {
+        showFeedback('Geolocation is not supported by this browser.');
+        return;
+      }
+      clearFeedback();
+      locateBtn.classList.add('locating');
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          locateBtn.classList.remove('locating');
+          setUserMarker(pos.coords.latitude, pos.coords.longitude, {
+            accuracy: pos.coords.accuracy,
+            label: 'You are here',
+            zoom: 16
+          });
+        },
+        function(err) {
+          locateBtn.classList.remove('locating');
+          if (err.code === 1) {
+            showFeedback('Location access was denied. Enable location permissions for this site, or use the address search.');
+          } else {
+            showFeedback('Unable to determine your location. Try the address search instead.');
+          }
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+
+    // ── Address search (Nominatim, bounded to Lancaster, PA) ──
+    // viewbox = west, north, east, south (covers the City of Lancaster + immediate surrounds)
+    var LANCASTER_VIEWBOX = '-76.34,40.07,-76.25,40.00';
+    var searchTimer = null;
+    var searchToken = 0;
+
+    function formatSuggestion(item) {
+      var a = item.address || {};
+      var line1Parts = [];
+      if (a.house_number) line1Parts.push(a.house_number);
+      if (a.road) line1Parts.push(a.road);
+      var line1 = line1Parts.join(' ');
+      var city = a.city || a.town || a.village || a.hamlet || a.suburb || '';
+      if (line1 && city) return line1 + ', ' + city;
+      if (line1) return line1;
+      return item.display_name.split(',').slice(0, 3).join(',').trim();
+    }
+
+    function renderSuggestions(items) {
+      if (!items || items.length === 0) {
+        suggestionsEl.innerHTML = '<div class="search-suggestion-empty">No matching address in Lancaster, PA. Try a different format.</div>';
+        suggestionsEl.classList.add('open');
+        return;
+      }
+      suggestionsEl.innerHTML = items.map(function(item) {
+        return '<div class="search-suggestion" role="option" data-lat="' + item.lat + '" data-lon="' + item.lon + '" data-label="' + escapeHtml(formatSuggestion(item)) + '">' +
+          escapeHtml(formatSuggestion(item)) +
+        '</div>';
+      }).join('');
+      suggestionsEl.classList.add('open');
+    }
+
+    function searchAddress(query) {
+      var token = ++searchToken;
+      var url = 'https://nominatim.openstreetmap.org/search'
+        + '?q=' + encodeURIComponent(query + ', Lancaster, PA')
+        + '&format=json&limit=5&addressdetails=1'
+        + '&viewbox=' + LANCASTER_VIEWBOX
+        + '&bounded=1';
+      fetch(url, { headers: { 'Accept': 'application/json' } })
+        .then(function(r) { return r.json(); })
+        .then(function(results) {
+          if (token !== searchToken) return;
+          renderSuggestions(results);
+        })
+        .catch(function() {
+          if (token !== searchToken) return;
+          showFeedback('Address search is temporarily unavailable. Try the location button.');
+        });
+    }
+
+    searchInput.addEventListener('input', function() {
+      clearFeedback();
+      var q = searchInput.value.trim();
+      if (searchTimer) clearTimeout(searchTimer);
+      if (q.length < 3) {
+        suggestionsEl.classList.remove('open');
+        suggestionsEl.innerHTML = '';
+        return;
+      }
+      searchTimer = setTimeout(function() { searchAddress(q); }, 300);
+    });
+
+    function pickSuggestion(item) {
+      var lat = parseFloat(item.dataset.lat);
+      var lon = parseFloat(item.dataset.lon);
+      if (isNaN(lat) || isNaN(lon)) return;
+      searchInput.value = item.dataset.label || item.textContent;
+      suggestionsEl.classList.remove('open');
+      setUserMarker(lat, lon, { label: 'Your address', zoom: 17 });
+    }
+
+    suggestionsEl.addEventListener('click', function(e) {
+      var item = e.target.closest('.search-suggestion');
+      if (item) pickSuggestion(item);
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+      var open = suggestionsEl.classList.contains('open');
+      var items = suggestionsEl.querySelectorAll('.search-suggestion');
+      if (!open || items.length === 0) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          var q = searchInput.value.trim();
+          if (q.length >= 3) searchAddress(q);
         }
-        btn.classList.add('locating');
-        navigator.geolocation.getCurrentPosition(
-          function(pos) {
-            btn.classList.remove('locating');
-            var lat = pos.coords.latitude;
-            var lng = pos.coords.longitude;
-            var accuracy = pos.coords.accuracy;
+        return;
+      }
+      var active = suggestionsEl.querySelector('.search-suggestion.active');
+      var idx = -1;
+      items.forEach(function(el, i) { if (el === active) idx = i; });
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        var nextIdx = (idx + 1) % items.length;
+        if (active) active.classList.remove('active');
+        items[nextIdx].classList.add('active');
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        var prevIdx = idx <= 0 ? items.length - 1 : idx - 1;
+        if (active) active.classList.remove('active');
+        items[prevIdx].classList.add('active');
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        pickSuggestion(active || items[0]);
+      } else if (e.key === 'Escape') {
+        suggestionsEl.classList.remove('open');
+      }
+    });
 
-            if (userMarker) {
-              map.removeLayer(userMarker);
-              map.removeLayer(userCircle);
-            }
-
-            userMarker = L.marker([lat, lng], {
-              icon: L.divIcon({
-                className: 'user-marker',
-                iconSize: [16, 16],
-                iconAnchor: [8, 8]
-              })
-            }).addTo(map).bindPopup('You are here');
-
-            userCircle = L.circle([lat, lng], {
-              radius: accuracy,
-              color: '#3b82f6',
-              fillColor: '#3b82f6',
-              fillOpacity: 0.1,
-              weight: 1
-            }).addTo(map);
-
-            map.setView([lat, lng], 16);
-            userMarker.openPopup();
-          },
-          function(err) {
-            btn.classList.remove('locating');
-            if (err.code === 1) {
-              alert('Location access was denied. Please enable location permissions for this site.');
-            } else {
-              alert('Unable to determine your location. Please try again.');
-            }
-          },
-          { enableHighAccuracy: true, timeout: 10000 }
-        );
-      });
-
-      return btn;
-    };
-    locateControl.addTo(map);
+    // Close suggestions on outside click
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.search-input-wrap')) {
+        suggestionsEl.classList.remove('open');
+      }
+    });
   </script>
 </body>
 </html>
