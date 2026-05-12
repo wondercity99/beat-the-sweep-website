@@ -22,7 +22,7 @@ Tailwind compiles `src/input.css` → `dist/output.css`. The output file is giti
 
 **Styling:** Tailwind CSS v3.4.0 with custom brand colors defined in `tailwind.config.js` (sweep-blue, sweep-orange, sweep-yellow variants). Custom component classes (`.btn-primary`, `.card`, `.section-heading`, etc.) are defined as Tailwind `@layer components` in `src/input.css`.
 
-**Fonts:** Satoshi Variable (self-hosted in `fonts/`), Inter from Google Fonts as fallback.
+**Fonts:** Manrope from Google Fonts. Satoshi Variable is still self-hosted in `fonts/` and `@font-face`-declared in `src/input.css`, but unused.
 
 **Deployment:** Vercel serves the repo root as static files. Config in `vercel.json`.
 

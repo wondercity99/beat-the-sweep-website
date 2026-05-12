@@ -20,9 +20,9 @@
   <link rel="stylesheet" href="dist/output.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { font-family: 'Manrope', sans-serif; }
   </style>
 </head>
 <body class="bg-white">
@@ -62,161 +62,34 @@
   </nav>
 
   <!-- Hero -->
-  <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+  <section class="relative pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-sweep-blue via-sweep-blue-dark to-blue-900"></div>
     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
 
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-blue-100 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-        <span class="w-2 h-2 rounded-full bg-yellow-300"></span>
-        An unofficial Lancaster, PA resource
-      </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-        Never miss a<br>
-        <span class="text-yellow-300">Lancaster street sweep</span>
-      </h1>
-      <p class="text-lg md:text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-        A free, unofficial guide to every street sweeping route in Lancaster, PA. Find your route, see your next sweep, and add it to your calendar.
-      </p>
-      <div class="flex justify-center">
-        <a href="/lancaster" class="bg-white text-sweep-blue font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
-          Open the map
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Asymmetric content blocks -->
-  <section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <!-- 01 — The Map (large, illustrated) -->
-      <a href="/lancaster" class="group block mb-24 md:mb-32">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div class="lg:col-span-6 order-2 lg:order-1">
-            <div class="text-xs font-semibold text-sweep-blue tracking-[0.2em] uppercase mb-5">01 &mdash; The Map</div>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-5 leading-[1.1] group-hover:text-sweep-blue transition-colors">
-              All twenty Lancaster routes, color-coded by schedule.
-            </h2>
-            <p class="text-lg text-gray-600 mb-7 max-w-xl leading-relaxed">Click any route to see its next sweep date, then drop a recurring reminder into Apple, Google, or Outlook calendar in one click.</p>
-            <span class="inline-flex items-center gap-2 text-sweep-blue font-semibold border-b-2 border-sweep-blue pb-1 group-hover:gap-3 transition-all">
-              Open the map
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </span>
-          </div>
-          <div class="lg:col-span-6 order-1 lg:order-2">
-            <div class="aspect-[4/3] rounded-xl bg-gradient-to-br from-blue-50 via-white to-blue-50 border border-blue-100 p-4 md:p-6 shadow-md group-hover:shadow-xl transition-shadow relative overflow-hidden">
-              <svg viewBox="0 0 400 300" class="w-full h-full" aria-hidden="true">
-                <!-- Subtle street grid -->
-                <g stroke="#dbeafe" stroke-width="1">
-                  <line x1="0" y1="60" x2="400" y2="60"/>
-                  <line x1="0" y1="110" x2="400" y2="110"/>
-                  <line x1="0" y1="160" x2="400" y2="160"/>
-                  <line x1="0" y1="210" x2="400" y2="210"/>
-                  <line x1="0" y1="260" x2="400" y2="260"/>
-                  <line x1="60" y1="0" x2="60" y2="300"/>
-                  <line x1="130" y1="0" x2="130" y2="300"/>
-                  <line x1="200" y1="0" x2="200" y2="300"/>
-                  <line x1="270" y1="0" x2="270" y2="300"/>
-                  <line x1="340" y1="0" x2="340" y2="300"/>
-                </g>
-                <!-- Route lines (each color = a different schedule) -->
-                <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M30 60 L 200 60 L 200 110 L 370 110" stroke="#519bff"/>
-                  <path d="M30 160 L 130 160 L 130 210 L 370 210" stroke="#3d7ed9"/>
-                  <path d="M130 30 L 130 110 L 270 110 L 270 260" stroke="#ffb500"/>
-                  <path d="M60 270 L 60 160 L 200 160 L 200 270 L 340 270" stroke="#ffdd00"/>
-                </g>
-                <!-- Penn Square center marker -->
-                <g transform="translate(200, 160)">
-                  <circle r="22" fill="#3d7ed9" opacity="0.12"/>
-                  <circle r="6" fill="#3d7ed9"/>
-                  <circle r="6" fill="none" stroke="white" stroke-width="2"/>
-                </g>
-                <text x="215" y="156" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#3d7ed9">Penn Sq.</text>
-              </svg>
-              <!-- Legend -->
-              <div class="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-auto bg-white/90 backdrop-blur-sm rounded-md px-3 py-2 text-[10px] md:text-xs font-medium text-gray-700 shadow-sm flex flex-wrap gap-x-3 gap-y-1">
-                <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sweep-blue rounded-full"></span>Mon/Tue</span>
-                <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sweep-orange rounded-full"></span>Wed/Thu</span>
-                <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sweep-yellow rounded-full"></span>Fridays</span>
-              </div>
-            </div>
-          </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <!-- Square Lancaster map image -->
+        <div class="lg:col-span-5 order-1">
+          <img src="images/lancaster-map.png" alt="Map of Lancaster, Pennsylvania" class="w-3/4 max-w-xs mx-auto lg:max-w-none aspect-square object-cover rounded-2xl shadow-2xl border border-white/15">
         </div>
-      </a>
 
-      <!-- 02 — The Backstory (pull quote, editorial) -->
-      <div class="mb-24 md:mb-32">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div class="lg:col-span-5">
-            <div class="text-xs font-semibold text-gray-500 tracking-[0.2em] uppercase mb-5">02 &mdash; The Backstory</div>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-5 leading-[1.1]">Why do we even sweep streets?</h2>
-            <p class="text-lg text-gray-600 mb-7 leading-relaxed">A short history of street sweeping, why your city is mandated to do it, and whether the tickets are really a money grab.</p>
-            <a href="/sweep-faqs" class="inline-flex items-center gap-2 text-gray-900 font-semibold border-b-2 border-gray-900 pb-1 hover:gap-3 transition-all">
-              Read the FAQs
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </a>
+        <!-- Heading + subheading + CTA, left aligned -->
+        <div class="lg:col-span-7 order-2 text-left">
+          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-blue-100 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+            <span class="w-2 h-2 rounded-full bg-yellow-300"></span>
+            An unofficial Lancaster, PA resource
           </div>
-          <div class="lg:col-span-7">
-            <blockquote class="border-l-4 border-sweep-orange pl-6 md:pl-10 py-3">
-              <p class="text-2xl md:text-3xl text-gray-800 leading-snug mb-5" style="font-family: Georgia, 'Times New Roman', serif; font-style: italic;">&ldquo;The first organized public street sweeping was started by Benjamin Franklin. He proposed the idea in 1762, and it took about 7 years to get started.&rdquo;</p>
-              <footer class="text-sm text-gray-500">From the FAQs &mdash; <span class="italic">When did street sweeping start, and who started it?</span></footer>
-            </blockquote>
-          </div>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-extrabold text-white leading-tight mb-6 lg:whitespace-nowrap">
+            Helping Lancaster avoid street sweeping tickets
+          </h1>
+          <p class="text-lg md:text-xl text-blue-100 mb-10 max-w-xl">
+            A free, unofficial guide to every street sweeping route in Lancaster, PA. Find your route, see your next sweep, and add it to your calendar.
+          </p>
+          <a href="/lancaster" class="inline-block bg-white text-sweep-blue font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+            Open the map
+          </a>
         </div>
       </div>
-
-      <!-- 03 — The Game (pixel-arcade frame) -->
-      <a href="/game" class="group block mb-24 md:mb-32">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div class="lg:col-span-5">
-            <div class="aspect-[4/5] max-w-sm mx-auto rounded-md bg-gray-900 p-5 shadow-xl group-hover:shadow-2xl transition-all border-[6px] border-gray-900 relative overflow-hidden">
-              <!-- CRT scanlines -->
-              <div class="absolute inset-0 opacity-25 pointer-events-none" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px);"></div>
-              <!-- Pixel grid backing -->
-              <div class="absolute inset-0 opacity-[0.07]" style="background-image: linear-gradient(#519bff 1px, transparent 1px), linear-gradient(90deg, #519bff 1px, transparent 1px); background-size: 8px 8px;"></div>
-              <div class="relative h-full flex flex-col items-center justify-between text-yellow-300" style="font-family: 'Courier New', ui-monospace, monospace;">
-                <div class="text-[10px] tracking-[0.4em] opacity-70 mt-1">&mdash; ARCADE &mdash;</div>
-                <svg width="120" height="120" viewBox="0 0 16 16" style="image-rendering: pixelated;" shape-rendering="crispEdges" aria-hidden="true">
-                  <rect x="3" y="4" width="10" height="2" fill="#ffdd00"/>
-                  <rect x="2" y="6" width="12" height="6" fill="#ffdd00"/>
-                  <rect x="4" y="5" width="3" height="1" fill="#1f2937"/>
-                  <rect x="9" y="5" width="3" height="1" fill="#1f2937"/>
-                  <rect x="3" y="12" width="2" height="2" fill="#1f2937"/>
-                  <rect x="11" y="12" width="2" height="2" fill="#1f2937"/>
-                  <rect x="7" y="9" width="2" height="1" fill="#fbbf24"/>
-                </svg>
-                <div class="text-center mb-1">
-                  <div class="text-xl md:text-2xl font-bold tracking-[0.15em] mb-1">BEAT THE SWEEP</div>
-                  <div class="text-[10px] opacity-70 tracking-widest animate-pulse">PRESS START</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="lg:col-span-7">
-            <div class="text-xs font-semibold text-sweep-orange-dark tracking-[0.2em] uppercase mb-5">03 &mdash; A Diversion</div>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-5 leading-[1.1] group-hover:text-sweep-orange-dark transition-colors">A free retro game in your browser.</h2>
-            <p class="text-lg text-gray-600 mb-7 max-w-xl leading-relaxed">Dodge sweepers. Avoid traffic. Don't get a ticket. Plays on desktop and mobile, no signup, no nothing.</p>
-            <span class="inline-flex items-center gap-2 text-sweep-orange-dark font-semibold border-b-2 border-sweep-orange-dark pb-1 group-hover:gap-3 transition-all">
-              Play now
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </span>
-          </div>
-        </div>
-      </a>
-
-      <!-- 04 — The App (small, demoted aside) -->
-      <a href="/app" class="block max-w-3xl mx-auto bg-sweep-yellow/15 hover:bg-sweep-yellow/25 border border-sweep-yellow/40 rounded-xl px-6 py-5 transition-colors">
-        <div class="flex items-center justify-between gap-4">
-          <div class="flex-1">
-            <div class="text-[10px] font-semibold text-sweep-orange-dark tracking-[0.2em] uppercase mb-1">04 &mdash; Outside Lancaster?</div>
-            <p class="text-gray-800 font-medium leading-snug">Snap a parking sign and the Beat the Sweep app reads the schedule for you. iOS and Android.</p>
-          </div>
-          <span class="flex-shrink-0 text-sweep-orange-dark font-semibold whitespace-nowrap">Get the app &rarr;</span>
-        </div>
-      </a>
-
     </div>
   </section>
 
@@ -291,5 +164,6 @@
       mobileMenuBtn.setAttribute('aria-expanded', isOpen);
     });
   </script>
+
 </body>
 </html>
